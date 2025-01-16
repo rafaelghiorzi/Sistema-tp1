@@ -72,11 +72,11 @@ public class Professor extends Pessoa {
         aulas.add(aula);
     }
 
-    public void editarAula(Aula aula, Timestamp novaData, String novoNome, int novaCapacidade, int novaComissaoFixa, String novosDetalhes) {
+    public void editarAula(Aula aula, Timestamp novaData, String novoNome, int novaCapacidade, int novaComissao, String novosDetalhes) {
         aula.setData(novaData);
         aula.setNome(novoNome);
         aula.setCapacidade(novaCapacidade);
-        aula.setComissaoFixa(novaComissaoFixa);
+        aula.setcomissao(novaComissao);
         aula.setDetalhes(novosDetalhes);
     }
 

@@ -26,17 +26,273 @@ public class PerfilUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        ola = new javax.swing.JLabel();
+        nomePlaceholder = new javax.swing.JLabel();
+        infoPanel = new javax.swing.JPanel();
+        infoLabel = new javax.swing.JLabel();
+        mensalidadeLabel = new javax.swing.JLabel();
+        aulasLabel = new javax.swing.JLabel();
+        unidadeLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        infoTitle = new javax.swing.JLabel();
+        celularLabel = new javax.swing.JLabel();
+        nomeLabel = new javax.swing.JLabel();
+        senhaLabel = new javax.swing.JLabel();
+        mensalidadeValue = new javax.swing.JLabel();
+        aulasValue = new javax.swing.JLabel();
+        unidadeValue = new javax.swing.JLabel();
+        emailInput = new javax.swing.JTextField();
+        celularInput = new javax.swing.JTextField();
+        nomeInput = new javax.swing.JTextField();
+        senhaInput = new javax.swing.JTextField();
+        botaoEditar = new javax.swing.JButton();
+        aulaLabel = new javax.swing.JLabel();
+        aulasPanel = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
+        botaoBuscarAulas = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        Logout = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(720, 480));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        ola.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
+        ola.setText("Olá,");
+
+        nomePlaceholder.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
+        nomePlaceholder.setText("[aluno]");
+
+        infoPanel.setBackground(new java.awt.Color(250, 250, 250));
+        infoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        infoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        infoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        infoLabel.setText("Suas informações atuais");
+
+        mensalidadeLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mensalidadeLabel.setText("Mensalidade:");
+
+        aulasLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        aulasLabel.setText("Aulas participadas:");
+
+        unidadeLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        unidadeLabel.setText("Sua unidade atual:");
+
+        emailLabel.setText("Email:");
+
+        infoTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        infoTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        infoTitle.setText("Informações pessoais");
+
+        celularLabel.setText("Celular:");
+
+        nomeLabel.setText("Nome:");
+
+        senhaLabel.setText("Senha:");
+
+        mensalidadeValue.setText("[mensalidade]");
+
+        aulasValue.setText("[aulas]");
+
+        unidadeValue.setText("[unidade]");
+
+        emailInput.setEditable(false);
+        emailInput.setText("[email]");
+
+        celularInput.setEditable(false);
+        celularInput.setText("[celular]");
+
+        nomeInput.setEditable(false);
+        nomeInput.setText("[nome]");
+
+        senhaInput.setEditable(false);
+        senhaInput.setText("[senha]");
+
+        botaoEditar.setText("Alterar informações");
+
+        javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
+        infoPanel.setLayout(infoPanelLayout);
+        infoPanelLayout.setHorizontalGroup(
+            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(botaoEditar)
+                    .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(infoTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(infoPanelLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(infoPanelLayout.createSequentialGroup()
+                        .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(infoPanelLayout.createSequentialGroup()
+                                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(aulasLabel)
+                                    .addComponent(unidadeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(aulasValue)
+                                    .addComponent(unidadeValue)))
+                            .addGroup(infoPanelLayout.createSequentialGroup()
+                                .addComponent(mensalidadeLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(mensalidadeValue)))
+                        .addGap(124, 124, 124))
+                    .addGroup(infoPanelLayout.createSequentialGroup()
+                        .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(infoPanelLayout.createSequentialGroup()
+                                .addComponent(emailLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(emailInput))
+                            .addGroup(infoPanelLayout.createSequentialGroup()
+                                .addComponent(celularLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(celularInput))
+                            .addGroup(infoPanelLayout.createSequentialGroup()
+                                .addComponent(nomeLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nomeInput))
+                            .addGroup(infoPanelLayout.createSequentialGroup()
+                                .addComponent(senhaLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(senhaInput)))
+                        .addContainerGap())))
+        );
+        infoPanelLayout.setVerticalGroup(
+            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(infoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mensalidadeLabel)
+                    .addComponent(mensalidadeValue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(aulasLabel)
+                    .addComponent(aulasValue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(unidadeLabel)
+                    .addComponent(unidadeValue))
+                .addGap(18, 18, 18)
+                .addComponent(infoTitle)
+                .addGap(18, 18, 18)
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailLabel)
+                    .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(celularLabel)
+                    .addComponent(celularInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nomeLabel)
+                    .addComponent(nomeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(senhaLabel)
+                    .addComponent(senhaInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(botaoEditar)
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+
+        aulaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        aulaLabel.setText("Veja suas próximas aulas!");
+
+        aulasPanel.setBackground(new java.awt.Color(250, 250, 250));
+
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Aula", "Professor", "Data", "Hora", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        aulasPanel.setViewportView(tabela);
+
+        botaoBuscarAulas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botaoBuscarAulas.setText("Buscar aulas");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(botaoBuscarAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aulasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(ola)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nomePlaceholder))
+                    .addComponent(aulaLabel))
+                .addGap(501, 501, 501))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ola)
+                            .addComponent(nomePlaceholder))
+                        .addGap(18, 18, 18)
+                        .addComponent(aulaLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(aulasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoBuscarAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))
+                    .addComponent(infoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        Logout.setText("Logout");
+        jMenuBar1.add(Logout);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -78,5 +334,32 @@ public class PerfilUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Logout;
+    private javax.swing.JLabel aulaLabel;
+    private javax.swing.JLabel aulasLabel;
+    private javax.swing.JScrollPane aulasPanel;
+    private javax.swing.JLabel aulasValue;
+    private javax.swing.JButton botaoBuscarAulas;
+    private javax.swing.JButton botaoEditar;
+    private javax.swing.JTextField celularInput;
+    private javax.swing.JLabel celularLabel;
+    private javax.swing.JTextField emailInput;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel infoLabel;
+    private javax.swing.JPanel infoPanel;
+    private javax.swing.JLabel infoTitle;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel mensalidadeLabel;
+    private javax.swing.JLabel mensalidadeValue;
+    private javax.swing.JTextField nomeInput;
+    private javax.swing.JLabel nomeLabel;
+    private javax.swing.JLabel nomePlaceholder;
+    private javax.swing.JLabel ola;
+    private javax.swing.JTextField senhaInput;
+    private javax.swing.JLabel senhaLabel;
+    private javax.swing.JTable tabela;
+    private javax.swing.JLabel unidadeLabel;
+    private javax.swing.JLabel unidadeValue;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,16 +14,16 @@ import java.util.ArrayList;
 public class Aula {
     protected String nome;
     protected int capacidade;
-    protected int comissaoFixa;
+    protected float comissao;
     protected String detalhes;
-    protected Timestamp data; // Alterado para Timestamp
+    protected Timestamp data;
     protected Professor professor;
     protected ArrayList<Reserva> reservas;
 
-    public Aula(String nome, int capacidade, int comissaoFixa, String detalhes, Timestamp data, Professor professor) {
+    public Aula(String nome, int capacidade, int comissao, String detalhes, Timestamp data, Professor professor) {
         this.nome = nome;
         this.capacidade = capacidade;
-        this.comissaoFixa = comissaoFixa;
+        this.comissao = comissao;
         this.detalhes = detalhes;
         this.data = data;
         this.professor = professor;
@@ -47,12 +47,12 @@ public class Aula {
         this.capacidade = capacidade;
     }
 
-    public int getComissaoFixa() {
-        return comissaoFixa;
+    public float getcomissao() {
+        return comissao;
     }
 
-    public void setComissaoFixa(int comissaoFixa) {
-        this.comissaoFixa = comissaoFixa;
+    public void setcomissao(int comissao) {
+        this.comissao = comissao;
     }
 
     public String getDetalhes() {
@@ -98,7 +98,7 @@ public class Aula {
     // Calcular comissão
     public float calcularComissao(Professor professor) {
         // Assumindo que cada reserva gera um valor (exemplo de cálculo)
-        return comissaoFixa * 0.01f; // exemplo: 2% de comissão
+        return comissao * 0.01f; // exemplo: 2% de comissão
     }
 }
 
