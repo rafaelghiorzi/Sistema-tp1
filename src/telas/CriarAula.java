@@ -83,7 +83,7 @@ public class CriarAula extends javax.swing.JFrame {
 
         capacidadeInput.setText("[capacidade placeholder]");
 
-        comissaoInput.setText("[comssião placeholder]");
+        comissaoInput.setText("[comissão placeholder]");
 
         horaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "hora", "Item 2", "Item 3", "Item 4" }));
         horaComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -270,65 +270,27 @@ public class CriarAula extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu admin;
-    private javax.swing.JCheckBox adminBool;
-    private javax.swing.JCheckBox adminBool1;
     private javax.swing.JComboBox<String> anoComboBox;
     private javax.swing.JComboBox<String> aulaComboBox;
     private javax.swing.JButton botaoSubmit;
     private javax.swing.JLabel capacidadeInput;
     private javax.swing.JLabel capacidadeLabel;
-    private javax.swing.JLabel celular;
-    private javax.swing.JLabel celular1;
-    private javax.swing.JTextField celularInput;
-    private javax.swing.JTextField celularInput1;
     private javax.swing.JLabel comissaoInput;
     private javax.swing.JLabel comissaoLabel;
-    private javax.swing.JLabel cpf;
-    private javax.swing.JLabel cpf1;
-    private javax.swing.JTextField cpfInput;
-    private javax.swing.JTextField cpfInput1;
     private javax.swing.JLabel dataLabel;
     private javax.swing.JTextArea detalhesInput;
     private javax.swing.JLabel detalhesLabel;
     private javax.swing.JScrollPane detalhesScroll;
     private javax.swing.JComboBox<String> diaComboBox;
-    private javax.swing.JLabel email;
-    private javax.swing.JLabel email1;
-    private javax.swing.JTextField emailInput;
-    private javax.swing.JTextField emailInput1;
-    private javax.swing.JLabel especialidade;
-    private javax.swing.JLabel especialidade1;
-    private javax.swing.JComboBox<String> especialidadeInput;
-    private javax.swing.JComboBox<String> especialidadeInput1;
     private javax.swing.JComboBox<String> horaComboBox;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JMenu logout;
     private javax.swing.JComboBox<String> mesComboBox;
-    private javax.swing.JLabel nome;
-    private javax.swing.JLabel nome1;
     private javax.swing.JLabel nomeAulaLabel;
-    private javax.swing.JTextField nomeInput;
-    private javax.swing.JTextField nomeInput1;
-    private javax.swing.JLabel senha;
-    private javax.swing.JLabel senha1;
-    private javax.swing.JPasswordField senhaInput;
-    private javax.swing.JPasswordField senhaInput1;
-    private javax.swing.JLabel sexo;
-    private javax.swing.JLabel sexo1;
-    private javax.swing.JComboBox<String> sexoInput;
-    private javax.swing.JComboBox<String> sexoInput1;
     private javax.swing.JLabel subtitulo;
     private javax.swing.JLabel titulo;
-    private javax.swing.JLabel unidade;
-    private javax.swing.JLabel unidade1;
-    private javax.swing.JComboBox<String> unidadeInput;
-    private javax.swing.JComboBox<String> unidadeInput1;
     private javax.swing.JMenu voltar;
     // End of variables declaration//GEN-END:variables
 }

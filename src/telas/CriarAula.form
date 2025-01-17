@@ -274,7 +274,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="comissaoInput">
               <Properties>
-                <Property name="text" type="java.lang.String" value="[comssi&#xe3;o placeholder]"/>
+                <Property name="text" type="java.lang.String" value="[comiss&#xe3;o placeholder]"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="horaComboBox">

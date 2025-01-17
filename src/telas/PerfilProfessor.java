@@ -47,6 +47,10 @@ public class PerfilProfessor extends javax.swing.JFrame {
         celularInput = new javax.swing.JTextField();
         nomeInput = new javax.swing.JTextField();
         botaoEditarInfo = new javax.swing.JButton();
+        aulaLabel = new javax.swing.JLabel();
+        aulasPanel = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
+        botaoCriarAula = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         logout = new javax.swing.JMenu();
         admin = new javax.swing.JMenu();
@@ -60,7 +64,8 @@ public class PerfilProfessor extends javax.swing.JFrame {
         nameLabel.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
         nameLabel.setText("Olá, [Professor]");
 
-        painelInfo.setBackground(new java.awt.Color(240, 240, 240));
+        painelInfo.setBackground(new java.awt.Color(250, 250, 250));
+        painelInfo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         infoLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         infoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -117,10 +122,7 @@ public class PerfilProfessor extends javax.swing.JFrame {
         painelInfoLayout.setHorizontalGroup(
             painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelInfoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(botaoEditarInfo)
-                    .addComponent(selfInfoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(selfInfoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(34, 34, 34))
             .addGroup(painelInfoLayout.createSequentialGroup()
                 .addContainerGap()
@@ -129,40 +131,50 @@ public class PerfilProfessor extends javax.swing.JFrame {
             .addGroup(painelInfoLayout.createSequentialGroup()
                 .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelInfoLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelInfoLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelInfoLayout.createSequentialGroup()
-                                .addComponent(salarioLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(salarioInput, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(38, 38, 38)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(painelInfoLayout.createSequentialGroup()
-                                .addComponent(unidadeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(unidadeInput))
-                            .addGroup(painelInfoLayout.createSequentialGroup()
-                                .addComponent(especialidadeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(especialidadeInput))
-                            .addGroup(painelInfoLayout.createSequentialGroup()
-                                .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)
+                                .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelInfoLayout.createSequentialGroup()
+                                        .addComponent(salarioLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(salarioInput, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(painelInfoLayout.createSequentialGroup()
+                                        .addComponent(unidadeLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(unidadeInput))
+                                    .addGroup(painelInfoLayout.createSequentialGroup()
+                                        .addComponent(especialidadeLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(especialidadeInput)))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(painelInfoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelInfoLayout.createSequentialGroup()
                                 .addComponent(nomeLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(nomeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelInfoLayout.createSequentialGroup()
-                                .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(senhaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(celularLabel, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(celularInput, javax.swing.GroupLayout.PREFERRED_SIZE, 62, Short.MAX_VALUE)
-                                    .addComponent(senhaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(nomeInput))
+                            .addGroup(painelInfoLayout.createSequentialGroup()
+                                .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(emailInput))
+                            .addGroup(painelInfoLayout.createSequentialGroup()
+                                .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(celularLabel)
+                                    .addComponent(senhaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(celularInput)
+                                    .addComponent(senhaInput)
+                                    .addGroup(painelInfoLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(botaoEditarInfo)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))))
+                .addContainerGap())
         );
         painelInfoLayout.setVerticalGroup(
             painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,35 +197,72 @@ public class PerfilProfessor extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(selfInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLabel)
                     .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(11, 11, 11)
                 .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(celularLabel)
                     .addComponent(celularInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(11, 11, 11)
                 .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeLabel)
                     .addComponent(nomeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(senhaLabel)
                     .addComponent(senhaInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(botaoEditarInfo)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
+
+        aulaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        aulaLabel.setText("Veja suas próximas aulas!");
+
+        aulasPanel.setBackground(new java.awt.Color(250, 250, 250));
+
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Aula", "Capacidade", "Data", "Hora", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        aulasPanel.setViewportView(tabela);
+
+        botaoCriarAula.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botaoCriarAula.setText("Criar aula");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameLabel)
+                            .addComponent(aulaLabel)
+                            .addComponent(aulasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(botaoCriarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(painelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -224,7 +273,13 @@ public class PerfilProfessor extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(nameLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(aulaLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(aulasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoCriarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))
                     .addComponent(painelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -301,6 +356,9 @@ public class PerfilProfessor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu admin;
+    private javax.swing.JLabel aulaLabel;
+    private javax.swing.JScrollPane aulasPanel;
+    private javax.swing.JButton botaoCriarAula;
     private javax.swing.JButton botaoEditarInfo;
     private javax.swing.JTextField celularInput;
     private javax.swing.JLabel celularLabel;
@@ -323,6 +381,7 @@ public class PerfilProfessor extends javax.swing.JFrame {
     private javax.swing.JLabel selfInfoLabel;
     private javax.swing.JPasswordField senhaInput;
     private javax.swing.JLabel senhaLabel;
+    private javax.swing.JTable tabela;
     private javax.swing.JLabel unidadeInput;
     private javax.swing.JLabel unidadeLabel;
     // End of variables declaration//GEN-END:variables
