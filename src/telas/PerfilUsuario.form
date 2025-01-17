@@ -9,6 +9,11 @@
             <Property name="text" type="java.lang.String" value="Logout"/>
           </Properties>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="buscarAulas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Buscar aulas"/>
+          </Properties>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>

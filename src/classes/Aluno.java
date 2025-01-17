@@ -12,17 +12,32 @@ import java.util.ArrayList;
  *
  * @author rafae
  */
-public class Aluno extends Pessoa {
+public class Aluno extends Pessoa implements Autenticavel {
     protected float mensalidade;
     protected ArrayList<Reserva> reservas;
 
-    public Aluno(String nome, int cpf, char sexo, String email, int celular, String senha, Unidade unidade, float mensalidade) {
+    public Aluno(String nome, String cpf, char sexo, String email, String celular, String senha, Unidade unidade, float mensalidade) {
         super(nome, cpf, sexo, email, celular, senha, unidade);
         this.mensalidade = mensalidade;
         this.reservas = new ArrayList<>();
     }
 
     // Getters e Setters
+    @Override
+    public String getCPF() {
+        return this.cpf;
+    }
+    
+    @Override
+    public String getNome() {
+        return this.nome;
+    }
+    
+    @Override
+    public boolean validarSenha(String senha) {
+        return this.senha.equals(senha);
+    }
+    
     public float getMensalidade() {
         return mensalidade;
     }

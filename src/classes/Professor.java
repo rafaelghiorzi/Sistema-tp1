@@ -13,13 +13,13 @@ import java.util.ArrayList;
  *
  * @author rafae
  */
-public class Professor extends Pessoa {
+public class Professor extends Pessoa implements Autenticavel {
     protected Especialidade especialidade;
     protected float salario;
     protected ArrayList<Aula> aulas;
     protected boolean admin;
 
-    public Professor(String nome, int cpf, char sexo, String email, int celular, String senha, Unidade unidade,
+    public Professor(String nome, String cpf, char sexo, String email, String celular, String senha, Unidade unidade,
                      Especialidade especialidade, float salario, boolean admin) {
         super(nome, cpf, sexo, email, celular, senha, unidade);
         this.especialidade = especialidade;
@@ -29,6 +29,22 @@ public class Professor extends Pessoa {
     }
 
     // Getters e Setters
+    
+    @Override
+    public String getCPF() {
+        return this.cpf;
+    }
+    
+    @Override
+    public String getNome() {
+        return this.nome;
+    }
+    
+    @Override
+    public boolean validarSenha(String senha) {
+        return this.senha.equals(senha);
+    }    
+
     public Especialidade getEspecialidade() {
         return especialidade;
     }

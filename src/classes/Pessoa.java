@@ -12,14 +12,14 @@ import enums.Unidade;
  */
 public abstract class Pessoa {
     protected String nome;
-    protected int cpf; // CPF como ID único
+    protected String cpf; // CPF como ID único
     protected char sexo; // 'h' ou 'm'
     protected String email; // checar se existe "@" no email
-    protected int celular; // 11 dígitos
+    protected String celular; // 11 dígitos
     protected String senha;
     protected Unidade unidade;
 
-    public Pessoa(String nome, int cpf, char sexo, String email, int celular, String senha, Unidade unidade) {
+    public Pessoa(String nome, String cpf, char sexo, String email, String celular, String senha, Unidade unidade) {
         // Validação do CPF deve ocorrer aqui ou em outro lugar, dependendo do contexto
         this.nome = nome;
         this.cpf = cpf;
@@ -39,11 +39,11 @@ public abstract class Pessoa {
         this.nome = nome;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -63,11 +63,11 @@ public abstract class Pessoa {
         this.email = email;
     }
 
-    public int getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(int celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 

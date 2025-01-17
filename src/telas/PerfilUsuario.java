@@ -53,6 +53,7 @@ public class PerfilUsuario extends javax.swing.JFrame {
         botaoBuscarAulas = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         Logout = new javax.swing.JMenu();
+        buscarAulas = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(720, 480));
@@ -276,6 +277,9 @@ public class PerfilUsuario extends javax.swing.JFrame {
         Logout.setText("Logout");
         jMenuBar1.add(Logout);
 
+        buscarAulas.setText("Buscar aulas");
+        jMenuBar1.add(buscarAulas);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -341,6 +345,7 @@ public class PerfilUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel aulasValue;
     private javax.swing.JButton botaoBuscarAulas;
     private javax.swing.JButton botaoEditar;
+    private javax.swing.JMenu buscarAulas;
     private javax.swing.JTextField celularInput;
     private javax.swing.JLabel celularLabel;
     private javax.swing.JTextField emailInput;

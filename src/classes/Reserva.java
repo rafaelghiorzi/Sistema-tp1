@@ -41,8 +41,4 @@ public class Reserva {
     public Aula getAula() {
         return aula;
     }
-
-    public void setAula(Aula aula) {
-        this.aula = aula;
-    }
 }

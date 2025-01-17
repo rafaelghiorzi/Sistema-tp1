@@ -47,6 +47,10 @@ public class CadastroAluno extends javax.swing.JFrame {
         unidade = new javax.swing.JLabel();
         especialidadeInput = new javax.swing.JComboBox<>();
         especialidade = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        logout = new javax.swing.JMenu();
+        voltar = new javax.swing.JMenu();
+        admin = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(720, 480));
@@ -197,6 +201,17 @@ public class CadastroAluno extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        logout.setText("Logout");
+        jMenuBar1.add(logout);
+
+        voltar.setText("Voltar");
+        jMenuBar1.add(voltar);
+
+        admin.setText("Admin");
+        jMenuBar1.add(admin);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,6 +277,7 @@ public class CadastroAluno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu admin;
     private javax.swing.JButton botaoSubmit;
     private javax.swing.JLabel celular;
     private javax.swing.JTextField celularInput;
@@ -271,8 +287,10 @@ public class CadastroAluno extends javax.swing.JFrame {
     private javax.swing.JTextField emailInput;
     private javax.swing.JLabel especialidade;
     private javax.swing.JComboBox<String> especialidadeInput;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenu logout;
     private javax.swing.JLabel nome;
     private javax.swing.JTextField nomeInput;
     private javax.swing.JLabel senha;
@@ -283,5 +301,6 @@ public class CadastroAluno extends javax.swing.JFrame {
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel unidade;
     private javax.swing.JComboBox<String> unidadeInput;
+    private javax.swing.JMenu voltar;
     // End of variables declaration//GEN-END:variables
 }
