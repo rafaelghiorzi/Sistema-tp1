@@ -27,7 +27,7 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         // admin adicionado com construtor específico
         listaProfessores.add(new Professor("Admin", "admin@codefit.com", "admin", true));
-        listaProfessores.add(new Professor("Maria Oliveira", "23456789012", 'F', "maria@gmail.com", "11988888888", "senha456", Unidade.Noroeste, Especialidade.Funcional, 3200.0f, false));        
+        listaProfessores.add(new Professor("Maria Oliveira", "123", 'F', "maria@gmail.com", "11988888888", "123", Unidade.Noroeste, Especialidade.Funcional, 3200.0f, false));        
         listaAlunos.add(new Aluno("Ana Costa", "19943781742", 'F', "ana@gmail.com", "11966666666", "senha123", Unidade.Sul, 200.0f));
         listaAlunos.add(new Aluno("Bruno Rocha", "56789012345", 'M', "bruno@gmail.com", "11955555555", "senha456", Unidade.Noroeste, 250.0f));
     }

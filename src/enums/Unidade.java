@@ -9,7 +9,7 @@ package enums;
  * @author rafae
  */
 public enum Unidade {
-    Sul, Sudoeste, Norte, Noroeste;
+    Sul, Sudoeste, Norte, Noroeste, Geral;
 }
 
 

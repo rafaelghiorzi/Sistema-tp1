@@ -32,7 +32,8 @@ public class Professor extends Pessoa implements Autenticavel {
     // construtor principalmente pro admin aqui
     public Professor(String nome, String email, String senha, boolean admin) {
         super(nome, "admin", 'H', email, "61991307015" ,senha, null);
-        this.especialidade = null;
+        this.especialidade = Especialidade.Musculacao;
+        this.unidade = Unidade.Geral;
         this.salario = 0;
         this.aulas = new ArrayList<>();
         this.admin = admin;
@@ -110,12 +111,12 @@ public class Professor extends Pessoa implements Autenticavel {
         aulas.remove(aula);
     }
 
-    public void gerarRelatorioSalario() {
+    public float gerarSalarioTotal() {
         float salarioTotal = salario;
         for (Aula aula : aulas) {
             salarioTotal += aula.calcularComissao(this); // Supondo que Aula tenha esse método
         }
-        System.out.println("Salário total do professor: " + salarioTotal);
+        return salarioTotal;
     }
 
     // fazer relatório?

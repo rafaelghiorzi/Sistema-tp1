@@ -4,17 +4,69 @@
  */
 package telas;
 
-/**
- *
- * @author rafae
- */
-public class PerfilUsuario extends javax.swing.JFrame {
+import classes.Aluno;
+import classes.UsuarioLogado;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-    /**
-     * Creates new form PerfilUsuario
-     */
+public class PerfilUsuario extends javax.swing.JFrame {
+    // instanciando um aluno logado
+    public static Aluno alunoLogado = (Aluno) UsuarioLogado.getUsuarioLogado();
+
     public PerfilUsuario() {
         initComponents();
+        estadoInicial();
+    }
+    
+    // função para atualizar a tabela de informações de reserva
+    private void carregarTabela() {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Aula", "Professor", "Data", "Hora", "Status"}, 0);
+        
+        // checando se o usuário tem reservas
+        if (alunoLogado.getReservas().isEmpty()) {
+            System.out.print("O usuário não tem reservas");
+            return;
+        }
+        
+        // iterando sobre cada reserva para listar elas
+        for (int i = 0; i < alunoLogado.getReservas().size(); i++) {
+            
+            // formatando TimeStamp para dd/mm
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM");
+            String dataFormatada = dateFormat.format(alunoLogado.getReservas().get(i).getAula().getData());
+            // formatando TimeStamp para horas '20h15'
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH'h'mm");
+            String horaFormatada = timeFormat.format(alunoLogado.getReservas().get(i).getAula().getData());
+            
+            Object linha[] = new Object[]{
+                alunoLogado.getReservas().get(i).getAula().getNome(),
+                alunoLogado.getReservas().get(i).getAula().getProfessor().getNome(),
+                dataFormatada,
+                horaFormatada,
+                alunoLogado.getReservas().get(i).getStatus()
+            };
+            modelo.addRow(linha);
+        }
+
+        tabela.setModel(modelo);
+    }
+    
+    // inicia ou reinicia a tela em estado inicial 
+    private void estadoInicial(){
+        carregarTabela();
+        nomePlaceholder.setText(alunoLogado.getNome());
+        mensalidadeValue.setText(String.format("R$ %.2f", alunoLogado.getMensalidade()));
+        unidadeValue.setText(alunoLogado.getUnidade().name());
+        
+        // isso está errado, está pegando todas as aulas
+        aulasValue.setText(Integer.toString(alunoLogado.getReservas().size()));
+        
+        emailInput.setText(alunoLogado.getEmail());
+        celularInput.setText(alunoLogado.getCelular());
+        nomeInput.setText(alunoLogado.getNome());
+        senhaInput.setText("");
+        botaoEditar.setEnabled(false);
     }
 
     /**
@@ -100,19 +152,25 @@ public class PerfilUsuario extends javax.swing.JFrame {
 
         unidadeValue.setText("[unidade]");
 
-        emailInput.setEditable(false);
         emailInput.setText("[email]");
 
-        celularInput.setEditable(false);
         celularInput.setText("[celular]");
 
-        nomeInput.setEditable(false);
         nomeInput.setText("[nome]");
 
-        senhaInput.setEditable(false);
         senhaInput.setText("[senha]");
+        senhaInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                senhaInputKeyTyped(evt);
+            }
+        });
 
         botaoEditar.setText("Alterar informações");
+        botaoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
@@ -231,6 +289,11 @@ public class PerfilUsuario extends javax.swing.JFrame {
 
         botaoBuscarAulas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botaoBuscarAulas.setText("Buscar aulas");
+        botaoBuscarAulas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoBuscarAulasMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -275,9 +338,19 @@ public class PerfilUsuario extends javax.swing.JFrame {
         );
 
         Logout.setText("Logout");
+        Logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LogoutMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(Logout);
 
         buscarAulas.setText("Buscar aulas");
+        buscarAulas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscarAulasMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(buscarAulas);
 
         setJMenuBar(jMenuBar1);
@@ -301,6 +374,51 @@ public class PerfilUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void senhaInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_senhaInputKeyTyped
+        botaoEditar.setEnabled(true);
+    }//GEN-LAST:event_senhaInputKeyTyped
+
+    private void botaoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarActionPerformed
+        // recuperando os valores de cada input
+        String senha = senhaInput.getText();
+        String email = emailInput.getText();
+        String celular = celularInput.getText();
+        String nome = nomeInput.getText();
+        
+        // checando formatação do celular e do email
+        if (!celular.matches("\\d{11}") || !email.contains("@")){
+            JOptionPane.showMessageDialog(this, "Insira celular e/ou email válidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        // validar senha para poder alterar as informações
+        else if (alunoLogado.validarSenha(senha)) {
+            alunoLogado.setNome(nome);
+            alunoLogado.setEmail(email);
+            alunoLogado.setCelular(celular);
+            JOptionPane.showMessageDialog(this, "Informações editadas com sucesso", "Info", JOptionPane.INFORMATION_MESSAGE);
+            estadoInicial();
+        } else {
+            JOptionPane.showMessageDialog(this, "Senha não confere!", "Erro", JOptionPane.ERROR_MESSAGE);
+            estadoInicial();
+        }
+    }//GEN-LAST:event_botaoEditarActionPerformed
+
+    private void LogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseClicked
+        UsuarioLogado.limparSessao();
+        TelaInicial tela = new TelaInicial();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LogoutMouseClicked
+
+    private void buscarAulasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarAulasMouseClicked
+       CriarReserva tela = new CriarReserva();
+       tela.setVisible(true);
+    }//GEN-LAST:event_buscarAulasMouseClicked
+
+    private void botaoBuscarAulasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoBuscarAulasMouseClicked
+       CriarReserva tela = new CriarReserva();
+       tela.setVisible(true);
+    }//GEN-LAST:event_botaoBuscarAulasMouseClicked
 
     /**
      * @param args the command line arguments

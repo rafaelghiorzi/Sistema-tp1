@@ -9,7 +9,7 @@ package classes;
  * @author rafae
  */
 public class UsuarioLogado {
-    private static Autenticavel usuarioLogado;
+    public static Autenticavel usuarioLogado;
     
     public static void setUsuarioLogado(Autenticavel usuario) {
         usuarioLogado = usuario;

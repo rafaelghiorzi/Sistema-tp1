@@ -4,19 +4,72 @@
  */
 package telas;
 
+import classes.Professor;
+import classes.UsuarioLogado;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static telas.PerfilUsuario.alunoLogado;
+
 /**
  *
  * @author rafae
  */
 public class PerfilProfessor extends javax.swing.JFrame {
-
-    /**
-     * Creates new form PerfilProfessor
-     */
+    public static Professor professorLogado = (Professor) UsuarioLogado.getUsuarioLogado();
+    
     public PerfilProfessor() {
         initComponents();
+        estadoInicial();
     }
 
+    // função para atualizar a tabela de informações de reserva
+    private void carregarTabela() {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Aula", "Capacidade", "Data", "Hora"}, 0);
+        
+        // checando se o usuário tem reservas
+        if (professorLogado.getAulas().isEmpty()) {
+            System.out.print("O professor não tem aulas");
+            return;
+        }
+        
+        // iterando sobre cada reserva para listar elas
+        for (int i = 0; i < professorLogado.getAulas().size(); i++) {
+            
+            // formatando TimeStamp para dd/mm
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM");
+            String dataFormatada = dateFormat.format(professorLogado.getAulas().get(i).getData());
+            // formatando TimeStamp para horas '20h15'
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH'h'mm");
+            String horaFormatada = timeFormat.format(professorLogado.getAulas().get(i).getData());
+            
+            Object linha[] = new Object[]{
+                professorLogado.getAulas().get(i).getNome(),
+                professorLogado.getAulas().get(i).getCapacidade(),
+                dataFormatada,
+                horaFormatada,
+            };
+            modelo.addRow(linha);
+        }
+
+        tabela.setModel(modelo);
+    }
+    
+    // inicia ou reinicia a tela em estado inicial 
+    private void estadoInicial(){
+    carregarTabela();
+    nameLabel.setText(String.format("Olá, %s.", professorLogado.getNome()));
+    // lógica do texto do salário aqui, antes e depois
+    salarioInput.setText(String.format("R$ %.2f + %.2f de comissão", professorLogado.getSalario(), professorLogado.gerarSalarioTotal() - professorLogado.getSalario()));
+    unidadeInput.setText(professorLogado.getUnidade().name());
+    especialidadeInput.setText(professorLogado.getEspecialidade().toString());
+    emailInput.setText(professorLogado.getEmail());
+    celularInput.setText(professorLogado.getCelular());
+    nomeInput.setText(professorLogado.getNome());
+    senhaInput.setText("");
+    botaoEditarInfo.setEnabled(false);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +107,9 @@ public class PerfilProfessor extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         logout = new javax.swing.JMenu();
         admin = new javax.swing.JMenu();
+        cadastrarAluno = new javax.swing.JMenuItem();
+        cadastrarProfessor = new javax.swing.JMenuItem();
+        gerenciarUsuarios = new javax.swing.JMenuItem();
         criarAula = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,6 +159,11 @@ public class PerfilProfessor extends javax.swing.JFrame {
         senhaLabel.setText("Senha:");
 
         senhaInput.setText("jPasswordField1");
+        senhaInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                senhaInputKeyTyped(evt);
+            }
+        });
 
         emailInput.setText("[email]");
         emailInput.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +177,11 @@ public class PerfilProfessor extends javax.swing.JFrame {
         nomeInput.setText("[nome]");
 
         botaoEditarInfo.setText("Alterar informações");
+        botaoEditarInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoEditarInfoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelInfoLayout = new javax.swing.GroupLayout(painelInfo);
         painelInfo.setLayout(painelInfoLayout);
@@ -225,17 +291,17 @@ public class PerfilProfessor extends javax.swing.JFrame {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Aula", "Capacidade", "Data", "Hora", "Status"
+                "Aula", "Capacidade", "Data", "Hora"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -246,6 +312,11 @@ public class PerfilProfessor extends javax.swing.JFrame {
 
         botaoCriarAula.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botaoCriarAula.setText("Criar aula");
+        botaoCriarAula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCriarAulaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -254,15 +325,18 @@ public class PerfilProfessor extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameLabel)
-                            .addComponent(aulaLabel)
-                            .addComponent(aulasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(botaoCriarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameLabel)
+                                    .addComponent(aulaLabel)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(135, 135, 135)
+                                .addComponent(botaoCriarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 132, Short.MAX_VALUE))
+                    .addComponent(aulasPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(painelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -285,12 +359,62 @@ public class PerfilProfessor extends javax.swing.JFrame {
         );
 
         logout.setText("Logout");
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+        });
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(logout);
 
         admin.setText("Admin");
+        admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminActionPerformed(evt);
+            }
+        });
+
+        cadastrarAluno.setText("Cadastrar Aluno");
+        cadastrarAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarAlunoActionPerformed(evt);
+            }
+        });
+        admin.add(cadastrarAluno);
+
+        cadastrarProfessor.setText("CadastrarProfessor");
+        cadastrarProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarProfessorActionPerformed(evt);
+            }
+        });
+        admin.add(cadastrarProfessor);
+
+        gerenciarUsuarios.setText("Gerenciar usuários");
+        gerenciarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerenciarUsuariosActionPerformed(evt);
+            }
+        });
+        admin.add(gerenciarUsuarios);
+
         jMenuBar1.add(admin);
 
         criarAula.setText("Criar aula");
+        criarAula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                criarAulaMouseClicked(evt);
+            }
+        });
+        criarAula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                criarAulaActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(criarAula);
 
         setJMenuBar(jMenuBar1);
@@ -318,6 +442,89 @@ public class PerfilProfessor extends javax.swing.JFrame {
     private void emailInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailInputActionPerformed
+
+    private void senhaInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_senhaInputKeyTyped
+        botaoEditarInfo.setEnabled(true);
+    }//GEN-LAST:event_senhaInputKeyTyped
+
+    private void botaoEditarInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoEditarInfoMouseClicked
+        // recuperando os valores de cada input
+        String senha = new String(senhaInput.getPassword());
+        String email = emailInput.getText();
+        String celular = celularInput.getText();
+        String nome = nomeInput.getText();
+        
+        // checando formatação do celular e do email
+        if (!celular.matches("\\d{11}") || !email.contains("@")){
+            JOptionPane.showMessageDialog(this, "Insira celular e/ou email válidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        // validar senha para poder alterar as informações
+        else if (professorLogado.validarSenha(senha)) {
+            professorLogado.setNome(nome);
+            professorLogado.setEmail(email);
+            professorLogado.setCelular(celular);
+            JOptionPane.showMessageDialog(this, "Informações editadas com sucesso", "Info", JOptionPane.INFORMATION_MESSAGE);
+            estadoInicial();
+        } else {
+            JOptionPane.showMessageDialog(this, "Senha não confere!", "Erro", JOptionPane.ERROR_MESSAGE);
+            estadoInicial();
+        }
+    }//GEN-LAST:event_botaoEditarInfoMouseClicked
+
+    private void botaoCriarAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarAulaActionPerformed
+        CriarAula tela = new CriarAula();
+        tela.setVisible(true);
+    }//GEN-LAST:event_botaoCriarAulaActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        UsuarioLogado.limparSessao();
+        TelaInicial tela = new TelaInicial();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logoutActionPerformed
+
+    private void criarAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarAulaActionPerformed
+        CriarAula tela = new CriarAula();
+        tela.setVisible(true);
+    }//GEN-LAST:event_criarAulaActionPerformed
+
+    private void cadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarAlunoActionPerformed
+        if (!professorLogado.isAdmin()) {
+            JOptionPane.showMessageDialog(this, "Você não tem acesso a essa página", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            CadastroAluno tela = new CadastroAluno();
+            tela.setVisible(true);
+        }
+    }//GEN-LAST:event_cadastrarAlunoActionPerformed
+
+    private void adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_adminActionPerformed
+
+    private void cadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarProfessorActionPerformed
+        if (!professorLogado.isAdmin()) {
+            JOptionPane.showMessageDialog(this, "Você não tem acesso a essa página", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            CadastroProfessor tela = new CadastroProfessor();
+            tela.setVisible(true);
+        }
+    }//GEN-LAST:event_cadastrarProfessorActionPerformed
+
+    private void gerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciarUsuariosActionPerformed
+        // essa tela ainda não existe
+    }//GEN-LAST:event_gerenciarUsuariosActionPerformed
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        UsuarioLogado.limparSessao();
+        TelaInicial tela = new TelaInicial();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logoutMouseClicked
+
+    private void criarAulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_criarAulaMouseClicked
+        CriarAula tela = new CriarAula();
+        tela.setVisible(true);
+    }//GEN-LAST:event_criarAulaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -360,6 +567,8 @@ public class PerfilProfessor extends javax.swing.JFrame {
     private javax.swing.JScrollPane aulasPanel;
     private javax.swing.JButton botaoCriarAula;
     private javax.swing.JButton botaoEditarInfo;
+    private javax.swing.JMenuItem cadastrarAluno;
+    private javax.swing.JMenuItem cadastrarProfessor;
     private javax.swing.JTextField celularInput;
     private javax.swing.JLabel celularLabel;
     private javax.swing.JMenu criarAula;
@@ -367,6 +576,7 @@ public class PerfilProfessor extends javax.swing.JFrame {
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel especialidadeInput;
     private javax.swing.JLabel especialidadeLabel;
+    private javax.swing.JMenuItem gerenciarUsuarios;
     private javax.swing.JLabel infoLabel;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
