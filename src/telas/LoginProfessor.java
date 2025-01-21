@@ -4,6 +4,11 @@
  */
 package telas;
 
+import classes.Professor;
+import classes.UsuarioLogado;
+import javax.swing.JOptionPane;
+import static telas.TelaInicial.listaProfessores;
+
 /**
  *
  * @author rafae
@@ -17,6 +22,39 @@ public class LoginProfessor extends javax.swing.JFrame {
         initComponents();
     }
 
+     // lógica para realizar login do usuário
+    private void realizarLogin() {
+        // recebendo input do usuário
+        String cpf = cpfInput.getText();
+        String senha = new String(senhaInput.getPassword());
+        
+        // procurando um aluno com o CPF informado
+        Professor professorLogin = null;
+        for (Professor professor : listaProfessores) {
+            if (professor.getCPF().equals(cpf)) {
+                professorLogin = professor;
+                break;
+            }
+        }
+        // Verificar se existe aluno com esse CPF
+        if (professorLogin == null) {
+            JOptionPane.showMessageDialog(this, "Aluno não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Caso tenha aluno, verificar senha
+        if(!professorLogin.validarSenha(senha)) {
+            JOptionPane.showMessageDialog(this, "Senha incorreta.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        // tirando as exceções, lgin efetuado com sucesso!
+        UsuarioLogado.setUsuarioLogado(professorLogin);
+        JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        
+        PerfilProfessor telaUsuario = new PerfilProfessor();
+        this.dispose();
+        telaUsuario.setVisible(true);
+    }   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +91,11 @@ public class LoginProfessor extends javax.swing.JFrame {
         senhaInput.setBackground(new java.awt.Color(230, 230, 230));
 
         jButton1.setText("Entrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,6 +156,10 @@ public class LoginProfessor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        realizarLogin();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

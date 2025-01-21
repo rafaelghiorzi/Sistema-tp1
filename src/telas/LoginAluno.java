@@ -4,6 +4,11 @@
  */
 package telas;
 
+import classes.Aluno;
+import classes.UsuarioLogado;
+import javax.swing.JOptionPane;
+import static telas.TelaInicial.listaAlunos;
+
 /**
  *
  * @author rafae
@@ -15,6 +20,39 @@ public class LoginAluno extends javax.swing.JFrame {
      */
     public LoginAluno() {
         initComponents();
+    }
+    
+    // lógica para realizar login do usuário
+    private void realizarLogin() {
+        // recebendo input do usuário
+        String cpf = cpfInput.getText();
+        String senha = new String(senhaInput.getPassword());
+        
+        // procurando um aluno com o CPF informado
+        Aluno alunoLogin = null;
+        for (Aluno aluno : listaAlunos) {
+            if (aluno.getCPF().equals(cpf)) {
+                alunoLogin = aluno;
+                break;
+            }
+        }
+        // Verificar se existe aluno com esse CPF
+        if (alunoLogin == null) {
+            JOptionPane.showMessageDialog(this, "Aluno não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Caso tenha aluno, verificar senha
+        if(!alunoLogin.validarSenha(senha)) {
+            JOptionPane.showMessageDialog(this, "Senha incorreta.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        // tirando as exceções, lgin efetuado com sucesso!
+        UsuarioLogado.setUsuarioLogado(alunoLogin);
+        JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        
+        PerfilUsuario telaUsuario = new PerfilUsuario();
+        this.dispose();
+        telaUsuario.setVisible(true);
     }
 
     /**
@@ -49,10 +87,20 @@ public class LoginAluno extends javax.swing.JFrame {
 
         cpfInput.setBackground(new java.awt.Color(230, 230, 230));
         cpfInput.setToolTipText("Apenas números, sem traços e pontos");
+        cpfInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpfInputActionPerformed(evt);
+            }
+        });
 
         senhaInput.setBackground(new java.awt.Color(230, 230, 230));
 
         jButton1.setText("Entrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,6 +161,14 @@ public class LoginAluno extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cpfInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpfInputActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        realizarLogin();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

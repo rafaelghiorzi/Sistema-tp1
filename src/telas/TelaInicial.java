@@ -4,17 +4,32 @@
  */
 package telas;
 
+import classes.Aluno;
+import classes.Aula;
+import classes.Professor;
+import classes.Reserva;
+import enums.Especialidade;
+import enums.Unidade;
+import java.util.ArrayList;
+
 /**
  *
  * @author rafae
  */
 public class TelaInicial extends javax.swing.JFrame {
+    // criando listas e elementos placeholder
+    public static ArrayList<Aluno> listaAlunos = new ArrayList<>();
+    public static ArrayList<Professor> listaProfessores = new ArrayList<>();
+    public static ArrayList<Aula> listaAulas = new ArrayList<>();
+    public static ArrayList<Reserva> listaReservas = new ArrayList<>();
 
-    /**
-     * Creates new form TelaInicial
-     */
     public TelaInicial() {
         initComponents();
+        // admin adicionado com construtor específico
+        listaProfessores.add(new Professor("Admin", "admin@codefit.com", "admin", true));
+        listaProfessores.add(new Professor("Maria Oliveira", "23456789012", 'F', "maria@gmail.com", "11988888888", "senha456", Unidade.Noroeste, Especialidade.Funcional, 3200.0f, false));        
+        listaAlunos.add(new Aluno("Ana Costa", "19943781742", 'F', "ana@gmail.com", "11966666666", "senha123", Unidade.Sul, 200.0f));
+        listaAlunos.add(new Aluno("Bruno Rocha", "56789012345", 'M', "bruno@gmail.com", "11955555555", "senha456", Unidade.Noroeste, 250.0f));
     }
 
     /**
@@ -45,9 +60,19 @@ public class TelaInicial extends javax.swing.JFrame {
 
         botaoProfessor.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         botaoProfessor.setText("Sou professor");
+        botaoProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoProfessorActionPerformed(evt);
+            }
+        });
 
         botaoAluno.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         botaoAluno.setText("Sou aluno");
+        botaoAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAlunoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelBotaoLayout = new javax.swing.GroupLayout(painelBotao);
         painelBotao.setLayout(painelBotaoLayout);
@@ -118,6 +143,18 @@ public class TelaInicial extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botaoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlunoActionPerformed
+        LoginAluno login = new LoginAluno();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botaoAlunoActionPerformed
+
+    private void botaoProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoProfessorActionPerformed
+        LoginProfessor login = new LoginProfessor();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botaoProfessorActionPerformed
 
     /**
      * @param args the command line arguments

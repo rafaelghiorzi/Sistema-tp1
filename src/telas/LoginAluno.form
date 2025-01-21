@@ -127,6 +127,9 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Apenas n&#xfa;meros, sem tra&#xe7;os e pontos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cpfInputActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="senhaInput">
           <Properties>
@@ -139,6 +142,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Entrar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
