@@ -8,6 +8,7 @@ import enums.Status;
 import enums.Unidade;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import static telas.TelaInicial.listaReservas;
 
 /**
  *
@@ -65,6 +66,7 @@ public class Aluno extends Pessoa implements Autenticavel {
         }
         Reserva novaReserva = new Reserva(Status.Pendente, this, aula);
         reservas.add(novaReserva);
+        listaReservas.add(novaReserva);
     }
 
     public void confirmarReserva(Reserva reserva) {

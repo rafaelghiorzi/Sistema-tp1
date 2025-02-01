@@ -4,6 +4,15 @@
  */
 package telas;
 
+import classes.UsuarioLogado;
+import classes.Professor;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import classes.Aula;
+import javax.swing.JOptionPane;
+import static telas.PerfilProfessor.professorLogado;
+
 /**
  *
  * @author DELL
@@ -15,6 +24,19 @@ public class CriarAula extends javax.swing.JFrame {
      */
     public CriarAula() {
         initComponents();
+    }
+    
+    public static Timestamp converterParaTimestamp(int dia, int mes, int ano, String hora) {
+        String dataHora = String.format("%d-%02d-%02d %s:00", ano, mes, dia, hora);
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Formato correto
+
+        try {
+            return new Timestamp(formato.parse(dataHora).getTime());
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Insira uma data válida!", "Data inválida", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
     }
 
     /**
@@ -29,7 +51,6 @@ public class CriarAula extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         subtitulo = new javax.swing.JLabel();
-        botaoSubmit = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         nomeAulaLabel = new javax.swing.JLabel();
         capacidadeLabel = new javax.swing.JLabel();
@@ -45,6 +66,7 @@ public class CriarAula extends javax.swing.JFrame {
         anoComboBox = new javax.swing.JComboBox<>();
         detalhesScroll = new javax.swing.JScrollPane();
         detalhesInput = new javax.swing.JTextArea();
+        botaoSubmit = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         logout = new javax.swing.JMenu();
         voltar = new javax.swing.JMenu();
@@ -64,9 +86,6 @@ public class CriarAula extends javax.swing.JFrame {
         subtitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         subtitulo.setText("Preencha as informações corretamente");
 
-        botaoSubmit.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        botaoSubmit.setText("Cadastrar");
-
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         nomeAulaLabel.setText("Nome da aula:");
@@ -75,28 +94,38 @@ public class CriarAula extends javax.swing.JFrame {
 
         comissaoLabel.setText("Comissão fixa:");
 
-        dataLabel.setText("Data:");
+        dataLabel.setText("Data (h, dd/mm/aaaa :)");
 
         detalhesLabel.setText("Detalhes:");
 
-        aulaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        aulaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Calistenia", "Yoga", "Funcional", "Crossfit", "Musculacao", "Pilates", "Luta", "Danca" }));
+        aulaComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aulaComboBoxActionPerformed(evt);
+            }
+        });
 
         capacidadeInput.setText("[capacidade placeholder]");
 
         comissaoInput.setText("[comissão placeholder]");
 
-        horaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "hora", "Item 2", "Item 3", "Item 4" }));
+        horaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8:00", "9:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
         horaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 horaComboBoxActionPerformed(evt);
             }
         });
 
-        diaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "Item 2", "Item 3", "Item 4" }));
+        diaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        mesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "mês", "Item 2", "Item 3", "Item 4" }));
+        mesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        mesComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mesComboBoxActionPerformed(evt);
+            }
+        });
 
-        anoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ano", "Item 2", "Item 3", "Item 4" }));
+        anoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2025", "2026" }));
 
         detalhesInput.setColumns(20);
         detalhesInput.setRows(5);
@@ -113,28 +142,29 @@ public class CriarAula extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(nomeAulaLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(aulaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(capacidadeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(capacidadeInput))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(comissaoLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comissaoInput))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(dataLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(horaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(diaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(horaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(diaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(mesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(anoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(detalhesLabel))
+                            .addComponent(detalhesLabel)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(nomeAulaLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(aulaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(capacidadeLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(capacidadeInput))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -166,6 +196,14 @@ public class CriarAula extends javax.swing.JFrame {
                 .addComponent(detalhesScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        botaoSubmit.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
+        botaoSubmit.setText("Cadastrar");
+        botaoSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoSubmitMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -174,15 +212,16 @@ public class CriarAula extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(subtitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(301, 301, 301)
-                        .addComponent(botaoSubmit)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(subtitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 179, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(172, 172, 172))
+                .addGap(0, 180, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(172, 172, 172))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(botaoSubmit)
+                        .addGap(337, 337, 337))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,6 +271,71 @@ public class CriarAula extends javax.swing.JFrame {
     private void horaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_horaComboBoxActionPerformed
+
+    private void botaoSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoSubmitMouseClicked
+        String nomeSelecionado = aulaComboBox.getSelectedItem().toString();
+        String capacidade_str = capacidadeInput.getText();
+        String comissao_str = comissaoInput.getText();
+        String horaSelecionada = horaComboBox.getSelectedItem().toString();
+        int diaSelecionado = Integer.parseInt(diaComboBox.getSelectedItem().toString());
+        int mesSelecionado = Integer.parseInt(mesComboBox.getSelectedItem().toString());
+        int anoSelecionado = Integer.parseInt(anoComboBox.getSelectedItem().toString());
+        String detalhesAula = detalhesInput.getText();
+        
+        int capacidade = Integer.parseInt(capacidade_str);
+        int comissao = Integer.parseInt(comissao_str);
+        
+        System.out.print(diaSelecionado + " " + mesSelecionado + " " + anoSelecionado + " " + horaSelecionada);
+        Timestamp dataAula = converterParaTimestamp(diaSelecionado, mesSelecionado, anoSelecionado, horaSelecionada);
+        professorLogado.criarAula(new Aula(nomeSelecionado, capacidade, comissao, detalhesAula, dataAula, professorLogado));
+        JOptionPane.showMessageDialog(this, "Aula cadastrada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+        
+    }//GEN-LAST:event_botaoSubmitMouseClicked
+
+    private void aulaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aulaComboBoxActionPerformed
+        String aulaSelecionada = (String) aulaComboBox.getSelectedItem();
+        switch (aulaSelecionada) {
+            case "Calistenia" -> {
+                capacidadeInput.setText("6");
+                comissaoInput.setText("100");
+            }
+            case "Yoga" -> {
+                capacidadeInput.setText("20");
+                comissaoInput.setText("80");
+            }
+            case "Funcional" -> {
+                capacidadeInput.setText("8");
+                comissaoInput.setText("90");
+            }
+            case "Crossfit" -> {
+                capacidadeInput.setText("15");
+                comissaoInput.setText("100");
+            }
+            case "Musculacao" -> {
+                capacidadeInput.setText("12");
+                comissaoInput.setText("80");
+            }
+            case "Pilates" -> {
+                capacidadeInput.setText("8");
+                comissaoInput.setText("100");
+            }
+            case "Luta" -> {
+                capacidadeInput.setText("12");
+                comissaoInput.setText("100");
+            }
+            case "Danca" -> {
+                capacidadeInput.setText("20");
+                comissaoInput.setText("80");
+            }
+            default -> {
+            }     
+        }
+    }//GEN-LAST:event_aulaComboBoxActionPerformed
+
+    private void mesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mesComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mesComboBoxActionPerformed
 
     /**
      * @param args the command line arguments

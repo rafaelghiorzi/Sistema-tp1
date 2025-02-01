@@ -4,7 +4,7 @@
  */
 package classes;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -64,7 +64,7 @@ public class Aula {
     }
 
     public Timestamp getData() {
-        return data;
+        return this.data;
     }
 
     public void setData(Timestamp data) {

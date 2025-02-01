@@ -11,7 +11,7 @@ import classes.Reserva;
 import enums.Especialidade;
 import enums.Unidade;
 import java.util.ArrayList;
-
+import java.sql.Timestamp;
 /**
  *
  * @author rafae
@@ -25,13 +25,57 @@ public class TelaInicial extends javax.swing.JFrame {
 
     public TelaInicial() {
         initComponents();
-        // admin adicionado com construtor específico
-        listaProfessores.add(new Professor("Admin", "admin@codefit.com", "admin", true));
-        listaProfessores.add(new Professor("Maria Oliveira", "123", 'F', "maria@gmail.com", "11988888888", "123", Unidade.Noroeste, Especialidade.Funcional, 3200.0f, false));        
-        listaAlunos.add(new Aluno("Ana Costa", "19943781742", 'F', "ana@gmail.com", "11966666666", "senha123", Unidade.Sul, 200.0f));
-        listaAlunos.add(new Aluno("Bruno Rocha", "56789012345", 'M', "bruno@gmail.com", "11955555555", "senha456", Unidade.Noroeste, 250.0f));
+        adicionarDadosIniciais();
     }
 
+private void adicionarDadosIniciais() {
+    // Criando professores
+    if (!listaProfessores.isEmpty() && !listaAlunos.isEmpty() && !listaAulas.isEmpty()) {
+        return; // Se qualquer uma das listas já tiver elementos, não adiciona novamente
+    }
+    
+    Professor admin = new Professor("Admin", "admin@codefit.com", "admin", true); 
+    Professor professor2 = new Professor("Maria Oliveira", "123", 'F', "maria@gmail.com", "11988888888", "123", Unidade.Noroeste, Especialidade.Funcional, 3200.0f, false);
+    Professor professor3 = new Professor("Carlos Silva", "carlos@gmail.com", "senha789", true); 
+    Professor professor4 = new Professor("Paula Souza", "paula@gmail.com", "senha101", false);
+
+    // Adicionando professores na lista
+    listaProfessores.add(admin);
+    listaProfessores.add(professor2);
+    listaProfessores.add(professor3);
+    listaProfessores.add(professor4);
+
+    // Criando alunos
+    Aluno aluno1 = new Aluno("Ana Costa", "19943781742", 'F', "ana@gmail.com", "11966666666", "senha123", Unidade.Sul, 200.0f);
+    Aluno aluno2 = new Aluno("Bruno Rocha", "56789012345", 'M', "bruno@gmail.com", "11955555555", "senha456", Unidade.Noroeste, 250.0f);
+    Aluno aluno3 = new Aluno("Luana Pereira", "12345678901", 'F', "luana@gmail.com", "11944444444", "senha321", Unidade.Sudoeste, 220.0f);
+    Aluno aluno4 = new Aluno("Felipe Santos", "98765432100", 'M', "felipe@gmail.com", "11933333333", "senha654", Unidade.Sul, 180.0f);
+
+    // Adicionando alunos na lista
+    listaAlunos.add(aluno1);
+    listaAlunos.add(aluno2);
+    listaAlunos.add(aluno3);
+    listaAlunos.add(aluno4);
+
+    // Criando aulas
+    Timestamp timestamp1 = Timestamp.valueOf("2025-01-22 14:30:00");
+    Timestamp timestamp2 = Timestamp.valueOf("2025-01-23 10:00:00");
+    Timestamp timestamp3 = Timestamp.valueOf("2025-01-24 09:00:00");
+    Timestamp timestamp4 = Timestamp.valueOf("2025-01-25 15:00:00");
+
+    Aula aula1 = new Aula("Calistenia", 35, 2, "Exercícios corporais", timestamp1, admin);
+    Aula aula2 = new Aula("Yoga", 30, 3, "Aula para praticantes experientes", timestamp2, professor2);
+    Aula aula3 = new Aula("Pilates", 40, 1, "Aula de Pilates para iniciantes", timestamp3, professor3);
+    Aula aula4 = new Aula("Musculacao", 45, 2, "Aula intensa de ciclismo", timestamp4, professor4);
+    
+    aluno1.criarReserva(aula2);
+
+    // Adicionando aulas na lista e aos professores
+    admin.criarAula(aula1);
+    professor2.criarAula(aula2);
+    professor3.criarAula(aula3);
+    professor4.criarAula(aula4);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,7 +211,7 @@ public class TelaInicial extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

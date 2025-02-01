@@ -44,6 +44,7 @@ public class LoginAluno extends javax.swing.JFrame {
         // Caso tenha aluno, verificar senha
         if(!alunoLogin.validarSenha(senha)) {
             JOptionPane.showMessageDialog(this, "Senha incorreta.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         // tirando as exceções, lgin efetuado com sucesso!

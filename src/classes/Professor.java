@@ -6,9 +6,10 @@ package classes;
 
 import enums.Especialidade;
 import enums.Unidade;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import static telas.TelaInicial.listaAulas;
 
 /**
  *
@@ -97,6 +98,7 @@ public class Professor extends Pessoa implements Autenticavel {
             }
         }
         aulas.add(aula);
+        listaAulas.add(aula);
     }
 
     public void editarAula(Aula aula, Timestamp novaData, String novoNome, int novaCapacidade, int novaComissao, String novosDetalhes) {

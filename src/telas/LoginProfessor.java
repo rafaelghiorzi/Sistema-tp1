@@ -38,12 +38,13 @@ public class LoginProfessor extends javax.swing.JFrame {
         }
         // Verificar se existe aluno com esse CPF
         if (professorLogin == null) {
-            JOptionPane.showMessageDialog(this, "Aluno não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Professor não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
         // Caso tenha aluno, verificar senha
         if(!professorLogin.validarSenha(senha)) {
             JOptionPane.showMessageDialog(this, "Senha incorreta.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         // tirando as exceções, lgin efetuado com sucesso!
