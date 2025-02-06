@@ -9,6 +9,6 @@ package enums;
  * @author rafae
  */
 public enum Especialidade {
-    Calistenia, Yoga, Funcional, Crossfit, Musculacao, Pilates, Luta, Danca;
+    Calistenia, Yoga, Funcional, Crossfit, Musculacao, Pilates, Luta, Danca, Geral;
 }
 

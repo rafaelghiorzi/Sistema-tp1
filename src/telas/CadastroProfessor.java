@@ -3,6 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package telas;
+
+import classes.Professor;
+import classes.UsuarioLogado;
+import enums.Especialidade;
+import enums.Unidade;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
+import static telas.TelaInicial.listaProfessores;
+
 /**
  *
  * @author rafae
@@ -14,6 +23,13 @@ public class CadastroProfessor extends javax.swing.JFrame {
      */
     public CadastroProfessor() {
         initComponents();
+        popularComboBoxUnidade();
+    }
+    
+    private void popularComboBoxUnidade() {
+        for (Unidade unidade: Unidade.values()) {
+            unidadeInput.addItem(unidade.toString());
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,6 +83,11 @@ public class CadastroProfessor extends javax.swing.JFrame {
 
         botaoSubmit.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
         botaoSubmit.setText("Cadastrar");
+        botaoSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSubmitActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -92,6 +113,12 @@ public class CadastroProfessor extends javax.swing.JFrame {
         });
 
         sexo.setText("Sexo:");
+
+        unidadeInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unidadeInputActionPerformed(evt);
+            }
+        });
 
         unidade.setText("Unidade:");
 
@@ -219,9 +246,19 @@ public class CadastroProfessor extends javax.swing.JFrame {
         );
 
         logout.setText("Logout");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(logout);
 
         voltar.setText("Voltar");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(voltar);
 
         admin.setText("Admin");
@@ -250,7 +287,9 @@ public class CadastroProfessor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void especialidadeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_especialidadeInputActionPerformed
-        // TODO add your handling code here:
+        if (unidadeInput.getSelectedIndex() == 0) {
+            unidadeInput.removeItemAt(0);
+        }
     }//GEN-LAST:event_especialidadeInputActionPerformed
 
     private void adminBoolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminBoolActionPerformed
@@ -258,8 +297,123 @@ public class CadastroProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_adminBoolActionPerformed
 
     private void sexoInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoInputActionPerformed
-        // TODO add your handling code here:
+        if (sexoInput.getSelectedIndex() == 0) {
+            sexoInput.removeItemAt(0);
+        }
     }//GEN-LAST:event_sexoInputActionPerformed
+
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_voltarActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        UsuarioLogado.limparSessao();
+        this.dispose();
+        TelaInicial tela = new TelaInicial();
+        tela.setVisible(true);
+    }//GEN-LAST:event_logoutActionPerformed
+
+    private void botaoSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSubmitActionPerformed
+        try {
+        String nome = nomeInput.getText();
+        String cpf = cpfInput.getText();
+        String celular = celularInput.getText();
+        String email = emailInput.getText();
+        String senha = new String(senhaInput.getPassword());
+        String sexo = sexoInput.getSelectedItem().toString();
+        String unidade = unidadeInput.getSelectedItem().toString();
+        String especialidade = especialidadeInput.getSelectedItem().toString();
+        
+        char sexoChar = 'P';
+        switch (sexo) {
+            case "Masculino":
+                sexoChar = 'M';
+                break;
+            case "Feminino":
+                sexoChar = 'F';
+                break;
+            case "Prefiro não dizer":
+                sexoChar = 'N';
+                break;
+            default:
+                break;
+        }
+        
+        Unidade unidadeFinal = Unidade.Geral;
+        switch (unidade) {
+            case "Sul":
+                unidadeFinal = Unidade.Sul;
+                break;
+            case "Sudoeste":
+                unidadeFinal = Unidade.Sudoeste;
+                break;
+            case "Norte":
+                unidadeFinal = Unidade.Norte;
+                break;
+            case "Noroeste":
+                unidadeFinal = Unidade.Noroeste;
+                break;
+            case "Geral":
+                unidadeFinal = Unidade.Geral;
+            default:
+                break;
+        }
+        
+        Especialidade especialidadeFinal = Especialidade.Geral;
+        switch (especialidade) {
+            case "Calistenia":
+                especialidadeFinal = Especialidade.Calistenia;
+                break;
+            case "Yoga":
+                especialidadeFinal = Especialidade.Yoga;
+                break;
+            case "Funcional":
+                especialidadeFinal = Especialidade.Funcional;
+                break;
+            case "Crossfit":
+                especialidadeFinal = Especialidade.Crossfit;
+                break;
+            case "Musculacao":
+                especialidadeFinal = Especialidade.Musculacao;
+            default:
+                break;
+            case "Pilates":
+                especialidadeFinal = Especialidade.Pilates;
+                break;
+            case "Luta":
+                especialidadeFinal = Especialidade.Luta;
+                break;
+            case "Danca":
+                especialidadeFinal = Especialidade.Danca;
+                break;
+        }
+        
+        for (Professor professor : listaProfessores) {
+            if (professor.getCPF().equals(cpf)) {
+                JOptionPane.showMessageDialog(this, "CPF inválido! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+        Professor professor = new Professor(nome, cpf, sexoChar, email, celular, senha, unidadeFinal, especialidade);
+        
+        if(professor.validarCPF(cpf)) {
+            listaProfessores.add(professor);
+            JOptionPane.showMessageDialog(this, "Professor criado com sucesso.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "CPF inválido! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        } catch (HeadlessException error) {
+            JOptionPane.showMessageDialog(this, "Não foi possível completar essa função!", "Erro", JOptionPane.ERROR_MESSAGE);
+            System.out.println(error);
+        }
+    }//GEN-LAST:event_botaoSubmitActionPerformed
+
+    private void unidadeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadeInputActionPerformed
+        if (unidadeInput.getSelectedIndex() == 0) {
+            unidadeInput.removeItemAt(0);
+        }
+    }//GEN-LAST:event_unidadeInputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,6 +444,7 @@ public class CadastroProfessor extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new CadastroProfessor().setVisible(true);
             }
