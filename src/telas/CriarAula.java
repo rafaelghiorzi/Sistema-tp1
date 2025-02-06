@@ -70,7 +70,6 @@ public class CriarAula extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         logout = new javax.swing.JMenu();
         voltar = new javax.swing.JMenu();
-        admin = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -238,13 +237,20 @@ public class CriarAula extends javax.swing.JFrame {
         );
 
         logout.setText("Logout");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(logout);
 
         voltar.setText("Voltar");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(voltar);
-
-        admin.setText("Admin");
-        jMenuBar1.add(admin);
 
         setJMenuBar(jMenuBar1);
 
@@ -337,6 +343,17 @@ public class CriarAula extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mesComboBoxActionPerformed
 
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_voltarActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        UsuarioLogado.limparSessao();
+        this.dispose();
+        TelaInicial tela = new TelaInicial();
+        tela.setVisible(true);
+    }//GEN-LAST:event_logoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -373,7 +390,6 @@ public class CriarAula extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu admin;
     private javax.swing.JComboBox<String> anoComboBox;
     private javax.swing.JComboBox<String> aulaComboBox;
     private javax.swing.JButton botaoSubmit;

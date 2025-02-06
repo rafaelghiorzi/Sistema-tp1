@@ -8,16 +8,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Logout"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutActionPerformed"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="voltar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="admin">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Admin"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voltarActionPerformed"/>
+          </Events>
         </Menu>
       </SubComponents>
     </Menu>

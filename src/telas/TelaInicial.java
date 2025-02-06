@@ -47,7 +47,7 @@ private void adicionarDadosIniciais() {
     listaProfessores.add(professor4);
 
     // Criando alunos
-    Aluno aluno1 = new Aluno("Ana Costa", "19943781742", 'F', "ana@gmail.com", "11966666666", "senha123", Unidade.Sul, Planos.Gold);
+    Aluno aluno1 = new Aluno("Ana Costa", "19943781742", 'F', "ana@gmail.com", "11966666666", "senha123", Unidade.Sul, Planos.Normal);
     Aluno aluno2 = new Aluno("Bruno Rocha", "56789012345", 'M', "bruno@gmail.com", "11955555555", "senha456", Unidade.Noroeste, Planos.Normal);
     Aluno aluno3 = new Aluno("Luana Pereira", "12345678901", 'F', "luana@gmail.com", "11944444444", "senha321", Unidade.Sudoeste, Planos.Platinum);
     Aluno aluno4 = new Aluno("Felipe Santos", "98765432100", 'M', "felipe@gmail.com", "11933333333", "senha654", Unidade.Sul, Planos.Gold);

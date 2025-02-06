@@ -379,6 +379,7 @@ public class CriarReserva extends javax.swing.JFrame {
 
     if (linhaSelecionada >= 0) {
         Aula aula = aulasFiltradas.get(linhaSelecionada); // Pega o objeto real da lista
+        System.out.println(alunoLogado.getLimite() +" " + alunoLogado.sizeReservas());
         if (alunoLogado.getLimite() == alunoLogado.sizeReservas()) {
             JOptionPane.showMessageDialog(null, "Não é possível se matricular, limite de reservas atingido!", "Erro de reserva", JOptionPane.ERROR_MESSAGE);
             return;

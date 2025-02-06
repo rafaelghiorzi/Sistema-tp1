@@ -5,8 +5,10 @@
 package telas;
 
 import classes.Aluno;
+import classes.UsuarioLogado;
 import enums.Planos;
 import enums.Unidade;
+import javax.swing.JOptionPane;
 import static telas.TelaInicial.listaAlunos;
 
 /**
@@ -20,8 +22,22 @@ public class CadastroAluno extends javax.swing.JFrame {
      */
     public CadastroAluno() {
         initComponents();
+        popularComboBoxUnidade();
+        popularComboBoxPlano();
     }
 
+    private void popularComboBoxUnidade() {
+        for (Unidade unidade: Unidade.values()) {
+            unidadeInput.addItem(unidade.toString());
+        }
+    }
+    
+    private void popularComboBoxPlano() {
+        for (Planos plano: Planos.values()) {
+            planoInput.addItem(plano.toString());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,12 +66,11 @@ public class CadastroAluno extends javax.swing.JFrame {
         sexo = new javax.swing.JLabel();
         unidadeInput = new javax.swing.JComboBox<>();
         unidade = new javax.swing.JLabel();
-        especialidadeInput = new javax.swing.JComboBox<>();
-        especialidade = new javax.swing.JLabel();
+        planoInput = new javax.swing.JComboBox<>();
+        plano = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         logout = new javax.swing.JMenu();
         voltar = new javax.swing.JMenu();
-        admin = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(720, 480));
@@ -103,6 +118,7 @@ public class CadastroAluno extends javax.swing.JFrame {
 
         sexo.setText("Sexo:");
 
+        unidadeInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar" }));
         unidadeInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 unidadeInputActionPerformed(evt);
@@ -111,13 +127,14 @@ public class CadastroAluno extends javax.swing.JFrame {
 
         unidade.setText("Unidade:");
 
-        especialidadeInput.addActionListener(new java.awt.event.ActionListener() {
+        planoInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar" }));
+        planoInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                especialidadeInputActionPerformed(evt);
+                planoInputActionPerformed(evt);
             }
         });
 
-        especialidade.setText("Plano:");
+        plano.setText("Plano:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -145,10 +162,10 @@ public class CadastroAluno extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(unidade)
-                            .addComponent(especialidade))
+                            .addComponent(plano))
                         .addGap(5, 5, 5)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(especialidadeInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(planoInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(unidadeInput, 0, 553, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -185,8 +202,8 @@ public class CadastroAluno extends javax.swing.JFrame {
                     .addComponent(unidadeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(especialidadeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(especialidade))
+                    .addComponent(planoInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(plano))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -218,13 +235,20 @@ public class CadastroAluno extends javax.swing.JFrame {
         );
 
         logout.setText("Logout");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(logout);
 
         voltar.setText("Voltar");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(voltar);
-
-        admin.setText("Admin");
-        jMenuBar1.add(admin);
 
         setJMenuBar(jMenuBar1);
 
@@ -254,13 +278,14 @@ public class CadastroAluno extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_sexoInputActionPerformed
 
-    private void especialidadeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_especialidadeInputActionPerformed
-        if (especialidadeInput.getSelectedIndex() == 0) {
-            especialidadeInput.removeItemAt(0);
+    private void planoInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planoInputActionPerformed
+        if (planoInput.getSelectedIndex() == 0) {
+            planoInput.removeItemAt(0);
         }
-    }//GEN-LAST:event_especialidadeInputActionPerformed
+    }//GEN-LAST:event_planoInputActionPerformed
 
     private void botaoSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSubmitActionPerformed
+        try {
         String nome = nomeInput.getText();
         String cpf = cpfInput.getText();
         String celular = celularInput.getText();
@@ -268,7 +293,7 @@ public class CadastroAluno extends javax.swing.JFrame {
         String senha = new String(senhaInput.getPassword());
         String sexo = sexoInput.getSelectedItem().toString();
         String unidade = unidadeInput.getSelectedItem().toString();
-        String plano = especialidadeInput.getSelectedItem().toString();
+        String plano = planoInput.getSelectedItem().toString();
         
         char sexoChar = 'P';
         switch (sexo) {
@@ -320,8 +345,25 @@ public class CadastroAluno extends javax.swing.JFrame {
                 break;      
         }
         
+        for (Aluno aluno : listaAlunos) {
+            if (aluno.getCPF().equals(cpf)) {
+                JOptionPane.showMessageDialog(this, "CPF inválido! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
         Aluno aluno = new Aluno(nome, cpf, sexoChar, email, celular, senha, unidadeFinal, planoFinal);
-        listaAlunos.add(aluno);
+        
+        if(aluno.validarCPF(cpf)) {
+            listaAlunos.add(aluno);
+            JOptionPane.showMessageDialog(this, "Aluno criado com sucesso.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "CPF inválido! Tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(this, "Não foi possível completar essa função!", "Erro", JOptionPane.ERROR_MESSAGE);
+            System.out.println(error);
+        }
     }//GEN-LAST:event_botaoSubmitActionPerformed
 
     private void unidadeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadeInputActionPerformed
@@ -329,6 +371,17 @@ public class CadastroAluno extends javax.swing.JFrame {
             unidadeInput.removeItemAt(0);
         }
     }//GEN-LAST:event_unidadeInputActionPerformed
+
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_voltarActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        UsuarioLogado.limparSessao();
+        this.dispose();
+        TelaInicial tela = new TelaInicial();
+        tela.setVisible(true);
+    }//GEN-LAST:event_logoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,7 +420,6 @@ public class CadastroAluno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu admin;
     private javax.swing.JButton botaoSubmit;
     private javax.swing.JLabel celular;
     private javax.swing.JTextField celularInput;
@@ -375,14 +427,14 @@ public class CadastroAluno extends javax.swing.JFrame {
     private javax.swing.JTextField cpfInput;
     private javax.swing.JLabel email;
     private javax.swing.JTextField emailInput;
-    private javax.swing.JLabel especialidade;
-    private javax.swing.JComboBox<String> especialidadeInput;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenu logout;
     private javax.swing.JLabel nome;
     private javax.swing.JTextField nomeInput;
+    private javax.swing.JLabel plano;
+    private javax.swing.JComboBox<String> planoInput;
     private javax.swing.JLabel senha;
     private javax.swing.JPasswordField senhaInput;
     private javax.swing.JLabel sexo;

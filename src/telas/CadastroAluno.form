@@ -8,16 +8,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Logout"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutActionPerformed"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="voltar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="admin">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Admin"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voltarActionPerformed"/>
+          </Events>
         </Menu>
       </SubComponents>
     </Menu>
@@ -169,11 +170,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="unidade" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="especialidade" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="plano" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="especialidadeInput" max="32767" attributes="0"/>
+                                  <Component id="planoInput" max="32767" attributes="0"/>
                                   <Component id="unidadeInput" pref="553" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -222,8 +223,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="especialidadeInput" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="especialidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="planoInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="plano" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -298,7 +299,9 @@
             <Component class="javax.swing.JComboBox" name="unidadeInput">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Selecionar"/>
+                  </StringArray>
                 </Property>
               </Properties>
               <Events>
@@ -313,20 +316,22 @@
                 <Property name="text" type="java.lang.String" value="Unidade:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="especialidadeInput">
+            <Component class="javax.swing.JComboBox" name="planoInput">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Selecionar"/>
+                  </StringArray>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="especialidadeInputActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="planoInputActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="especialidade">
+            <Component class="javax.swing.JLabel" name="plano">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Plano:"/>
               </Properties>
