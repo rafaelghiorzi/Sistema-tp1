@@ -12,10 +12,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class PerfilUsuario extends javax.swing.JFrame {
     // instanciando um aluno logado
-    public static Aluno alunoLogado = (Aluno) UsuarioLogado.getUsuarioLogado();
+    private final Aluno alunoLogado;
 
     public PerfilUsuario() {
         initComponents();
+        this.alunoLogado = (Aluno) UsuarioLogado.getUsuarioLogado();
         estadoInicial();
     }
     

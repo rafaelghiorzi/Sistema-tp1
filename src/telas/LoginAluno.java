@@ -47,7 +47,7 @@ public class LoginAluno extends javax.swing.JFrame {
             return;
         }
         
-        // tirando as exceções, lgin efetuado com sucesso!
+        // tirando as exceções, login efetuado com sucesso!
         UsuarioLogado.setUsuarioLogado(alunoLogin);
         JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         

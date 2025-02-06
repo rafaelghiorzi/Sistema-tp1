@@ -9,6 +9,7 @@ import classes.Aula;
 import classes.Professor;
 import classes.Reserva;
 import enums.Especialidade;
+import enums.Planos;
 import enums.Unidade;
 import java.util.ArrayList;
 import java.sql.Timestamp;
@@ -46,10 +47,10 @@ private void adicionarDadosIniciais() {
     listaProfessores.add(professor4);
 
     // Criando alunos
-    Aluno aluno1 = new Aluno("Ana Costa", "19943781742", 'F', "ana@gmail.com", "11966666666", "senha123", Unidade.Sul, 200.0f);
-    Aluno aluno2 = new Aluno("Bruno Rocha", "56789012345", 'M', "bruno@gmail.com", "11955555555", "senha456", Unidade.Noroeste, 250.0f);
-    Aluno aluno3 = new Aluno("Luana Pereira", "12345678901", 'F', "luana@gmail.com", "11944444444", "senha321", Unidade.Sudoeste, 220.0f);
-    Aluno aluno4 = new Aluno("Felipe Santos", "98765432100", 'M', "felipe@gmail.com", "11933333333", "senha654", Unidade.Sul, 180.0f);
+    Aluno aluno1 = new Aluno("Ana Costa", "19943781742", 'F', "ana@gmail.com", "11966666666", "senha123", Unidade.Sul, Planos.Gold);
+    Aluno aluno2 = new Aluno("Bruno Rocha", "56789012345", 'M', "bruno@gmail.com", "11955555555", "senha456", Unidade.Noroeste, Planos.Normal);
+    Aluno aluno3 = new Aluno("Luana Pereira", "12345678901", 'F', "luana@gmail.com", "11944444444", "senha321", Unidade.Sudoeste, Planos.Platinum);
+    Aluno aluno4 = new Aluno("Felipe Santos", "98765432100", 'M', "felipe@gmail.com", "11933333333", "senha654", Unidade.Sul, Planos.Gold);
 
     // Adicionando alunos na lista
     listaAlunos.add(aluno1);

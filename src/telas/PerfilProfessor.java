@@ -15,10 +15,12 @@ import javax.swing.table.DefaultTableModel;
  * @author rafae
  */
 public class PerfilProfessor extends javax.swing.JFrame {
-    public static Professor professorLogado = (Professor) UsuarioLogado.getUsuarioLogado();
+      private final Professor professorLogado;
     
     public PerfilProfessor() {
+        System.out.println(UsuarioLogado.getUsuarioLogado());
         initComponents();
+        this.professorLogado = (Professor) UsuarioLogado.getUsuarioLogado();
         estadoInicial();
     }
 

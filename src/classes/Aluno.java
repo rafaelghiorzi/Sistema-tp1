@@ -4,6 +4,7 @@
  */
 package classes;
 
+import enums.Planos;
 import enums.Status;
 import enums.Unidade;
 import java.util.ArrayList;
@@ -17,10 +18,39 @@ import static telas.TelaInicial.listaReservas;
 public class Aluno extends Pessoa implements Autenticavel {
     protected float mensalidade;
     protected ArrayList<Reserva> reservas;
+    protected Planos plano;
+    protected int limite;
 
-    public Aluno(String nome, String cpf, char sexo, String email, String celular, String senha, Unidade unidade, float mensalidade) {
+    public Aluno(String nome, String cpf, char sexo, String email, String celular, String senha, Unidade unidade, Planos plano) {
         super(nome, cpf, sexo, email, celular, senha, unidade);
-        this.mensalidade = mensalidade;
+        this.plano = plano;
+        switch (plano) {
+            case Planos.Normal:
+                this.limite = 2;
+                if (this.unidade.equals(Unidade.Geral)) {
+                    this.mensalidade = 130;
+                } else {
+                this.mensalidade = 105;
+                }
+                break;
+            case Planos.Gold:
+                this.limite = 5;
+                if (this.unidade.equals(Unidade.Geral)) {
+                    this.mensalidade = 150;
+                } else {
+                this.mensalidade = 130;
+                }
+                break;
+            case Planos.Platinum:
+                this.limite = 10;
+                if (this.unidade.equals(Unidade.Geral)) {
+                    this.mensalidade = 200;
+                }
+                this.mensalidade = 180;
+                break;
+            default:
+                break;
+        }
         this.reservas = new ArrayList<>();
     }
 
@@ -54,6 +84,26 @@ public class Aluno extends Pessoa implements Autenticavel {
 
     public void setReservas(ArrayList<Reserva> reservas) {
         this.reservas = reservas;
+    }
+   
+    public int sizeReservas() {
+        return this.reservas.size();
+    }
+
+    public int getLimite() {
+        return limite;
+    }
+
+    public Planos getPlano() {
+        return plano;
+    }
+
+    public void setLimite(int limite) {
+        this.limite = limite;
+    }
+
+    public void setPlano(Planos plano) {
+        this.plano = plano;
     }
 
     // Funções auxiliares

@@ -46,8 +46,7 @@ public class LoginProfessor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Senha incorreta.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        // tirando as exceções, lgin efetuado com sucesso!
+        // tirando as exceções, lgin efetuado com sucesso!        
         UsuarioLogado.setUsuarioLogado(professorLogin);
         JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         

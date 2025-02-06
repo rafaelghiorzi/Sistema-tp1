@@ -4,6 +4,11 @@
  */
 package telas;
 
+import classes.Aluno;
+import enums.Planos;
+import enums.Unidade;
+import static telas.TelaInicial.listaAlunos;
+
 /**
  *
  * @author rafae
@@ -67,6 +72,11 @@ public class CadastroAluno extends javax.swing.JFrame {
 
         botaoSubmit.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
         botaoSubmit.setText("Cadastrar");
+        botaoSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSubmitActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -92,6 +102,12 @@ public class CadastroAluno extends javax.swing.JFrame {
         });
 
         sexo.setText("Sexo:");
+
+        unidadeInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unidadeInputActionPerformed(evt);
+            }
+        });
 
         unidade.setText("Unidade:");
 
@@ -233,12 +249,86 @@ public class CadastroAluno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sexoInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoInputActionPerformed
-        // TODO add your handling code here:
+        if (sexoInput.getSelectedIndex() == 0) {
+            sexoInput.removeItemAt(0);
+        }
     }//GEN-LAST:event_sexoInputActionPerformed
 
     private void especialidadeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_especialidadeInputActionPerformed
-        // TODO add your handling code here:
+        if (especialidadeInput.getSelectedIndex() == 0) {
+            especialidadeInput.removeItemAt(0);
+        }
     }//GEN-LAST:event_especialidadeInputActionPerformed
+
+    private void botaoSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSubmitActionPerformed
+        String nome = nomeInput.getText();
+        String cpf = cpfInput.getText();
+        String celular = celularInput.getText();
+        String email = emailInput.getText();
+        String senha = new String(senhaInput.getPassword());
+        String sexo = sexoInput.getSelectedItem().toString();
+        String unidade = unidadeInput.getSelectedItem().toString();
+        String plano = especialidadeInput.getSelectedItem().toString();
+        
+        char sexoChar = 'P';
+        switch (sexo) {
+            case "Masculino":
+                sexoChar = 'M';
+                break;
+            case "Feminino":
+                sexoChar = 'F';
+                break;
+            case "Prefiro não dizer":
+                sexoChar = 'N';
+                break;
+            default:
+                break;
+        }
+        
+        Unidade unidadeFinal = Unidade.Geral;
+        switch (unidade) {
+            case "Sul":
+                unidadeFinal = Unidade.Sul;
+                break;
+            case "Sudoeste":
+                unidadeFinal = Unidade.Sudoeste;
+                break;
+            case "Norte":
+                unidadeFinal = Unidade.Norte;
+                break;
+            case "Noroeste":
+                unidadeFinal = Unidade.Noroeste;
+                break;
+            case "Geral":
+                unidadeFinal = Unidade.Geral;
+            default:
+                break;
+        }
+        
+        Planos planoFinal = Planos.Normal;
+        switch (plano) {
+            case "Normal":
+                planoFinal = Planos.Normal;
+                break;
+            case "Gold":
+                planoFinal = Planos.Gold;
+                break;
+            case "Platinum":
+                planoFinal = Planos.Platinum;
+                break;
+            default:
+                break;      
+        }
+        
+        Aluno aluno = new Aluno(nome, cpf, sexoChar, email, celular, senha, unidadeFinal, planoFinal);
+        listaAlunos.add(aluno);
+    }//GEN-LAST:event_botaoSubmitActionPerformed
+
+    private void unidadeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadeInputActionPerformed
+        if (unidadeInput.getSelectedIndex() == 0) {
+            unidadeInput.removeItemAt(0);
+        }
+    }//GEN-LAST:event_unidadeInputActionPerformed
 
     /**
      * @param args the command line arguments

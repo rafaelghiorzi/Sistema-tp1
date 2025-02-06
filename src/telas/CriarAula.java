@@ -11,19 +11,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import classes.Aula;
 import javax.swing.JOptionPane;
-import static telas.PerfilProfessor.professorLogado;
 
 /**
  *
  * @author DELL
  */
 public class CriarAula extends javax.swing.JFrame {
-
+    private final Professor professorLogado;
     /**
      * Creates new form CriarAula
      */
     public CriarAula() {
         initComponents();
+        this.professorLogado = (Professor) UsuarioLogado.getUsuarioLogado();
     }
     
     public static Timestamp converterParaTimestamp(int dia, int mes, int ano, String hora) {

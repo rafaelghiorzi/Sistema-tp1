@@ -13,6 +13,7 @@ public class UsuarioLogado {
     
     public static void setUsuarioLogado(Autenticavel usuario) {
         usuarioLogado = usuario;
+        System.out.println("Usuario setado" + usuarioLogado);
     }
     
     public static Autenticavel getUsuarioLogado() {
@@ -21,5 +22,6 @@ public class UsuarioLogado {
     
     public static void limparSessao() {
         usuarioLogado = null;
+        System.gc();
     }
 }

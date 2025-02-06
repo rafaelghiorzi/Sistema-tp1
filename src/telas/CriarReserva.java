@@ -4,8 +4,10 @@
  */
 package telas;
 
+import classes.Aluno;
 import classes.Aula;
 import classes.Professor;
+import classes.UsuarioLogado;
 import enums.Especialidade;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,17 +15,18 @@ import javax.swing.table.DefaultTableModel;
 import static telas.TelaInicial.listaAulas;
 import static telas.TelaInicial.listaProfessores;
 import javax.swing.JOptionPane;
-import static telas.PerfilUsuario.alunoLogado;
 
 /**
  *
  * @author rafae
  */
 public class CriarReserva extends javax.swing.JFrame {
-    private static final ArrayList<Aula> aulasFiltradas = new ArrayList<>();      
+    private static final ArrayList<Aula> aulasFiltradas = new ArrayList<>();
+    private final Aluno alunoLogado;
     
     public CriarReserva() {
         initComponents();
+        this.alunoLogado = (Aluno) UsuarioLogado.getUsuarioLogado();
         estadoInicial();
     }
     
