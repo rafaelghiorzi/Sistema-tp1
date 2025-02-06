@@ -115,6 +115,7 @@ public class Aluno extends Pessoa implements Autenticavel {
             }
         }
         Reserva novaReserva = new Reserva(Status.Pendente, this, aula);
+        aula.adicionarReserva(novaReserva);
         reservas.add(novaReserva);
         listaReservas.add(novaReserva);
     }

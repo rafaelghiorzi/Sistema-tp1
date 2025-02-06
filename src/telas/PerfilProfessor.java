@@ -4,11 +4,15 @@
  */
 package telas;
 
+import classes.Aula;
 import classes.Professor;
+import classes.Reserva;
 import classes.UsuarioLogado;
+import enums.Status;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static telas.TelaInicial.listaAulas;
 
 /**
  *
@@ -31,7 +35,6 @@ public class PerfilProfessor extends javax.swing.JFrame {
         // checando se o usuário tem reservas
         if (professorLogado.getAulas().isEmpty()) {
             System.out.print("O professor não tem aulas");
-            return;
         }
         
         // iterando sobre cada reserva para listar elas
@@ -46,7 +49,7 @@ public class PerfilProfessor extends javax.swing.JFrame {
             
             Object linha[] = new Object[]{
                 professorLogado.getAulas().get(i).getNome(),
-                professorLogado.getAulas().get(i).getCapacidade(),
+                String.format("%s de %s", professorLogado.getAulas().get(i).getReservas().size(), professorLogado.getAulas().get(i).getCapacidade()),
                 dataFormatada,
                 horaFormatada,
             };
@@ -69,6 +72,7 @@ public class PerfilProfessor extends javax.swing.JFrame {
     nomeInput.setText(professorLogado.getNome());
     senhaInput.setText("");
     botaoEditarInfo.setEnabled(false);
+    botaoCancelarAula.setEnabled(false);
     }
     
     /**
@@ -105,6 +109,7 @@ public class PerfilProfessor extends javax.swing.JFrame {
         aulasPanel = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         botaoCriarAula = new javax.swing.JButton();
+        botaoCancelarAula = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         logout = new javax.swing.JMenu();
         admin = new javax.swing.JMenu();
@@ -316,6 +321,11 @@ public class PerfilProfessor extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         aulasPanel.setViewportView(tabela);
 
         botaoCriarAula.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -326,27 +336,38 @@ public class PerfilProfessor extends javax.swing.JFrame {
             }
         });
 
+        botaoCancelarAula.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botaoCancelarAula.setText("Cancelar");
+        botaoCancelarAula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCancelarAulaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameLabel)
-                                    .addComponent(aulaLabel)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(135, 135, 135)
-                                .addComponent(botaoCriarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 132, Short.MAX_VALUE))
-                    .addComponent(aulasPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoCriarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoCancelarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(aulasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(painelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(nameLabel))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(aulaLabel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,7 +381,9 @@ public class PerfilProfessor extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(aulasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoCriarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoCriarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoCancelarAula, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6))
                     .addComponent(painelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -538,6 +561,25 @@ public class PerfilProfessor extends javax.swing.JFrame {
         estadoInicial();
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void botaoCancelarAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarAulaActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza de que deseja cancelar a aula?", "Confirmar Cancelamento", JOptionPane.YES_NO_OPTION);
+
+        if (resposta == JOptionPane.YES_OPTION) {
+            Aula aulaSelecionada = professorLogado.getAulas().get(tabela.getSelectedRow());
+            for (Reserva reserva : aulaSelecionada.getReservas()) {
+                reserva.setStatus(Status.Cancelada);
+            }
+            listaAulas.remove(aulaSelecionada);
+            professorLogado.getAulas().remove(aulaSelecionada);
+            JOptionPane.showMessageDialog(this, "Aula cancelada com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        estadoInicial();
+    }//GEN-LAST:event_botaoCancelarAulaActionPerformed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        botaoCancelarAula.setEnabled(true);
+    }//GEN-LAST:event_tabelaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -577,6 +619,7 @@ public class PerfilProfessor extends javax.swing.JFrame {
     private javax.swing.JMenu admin;
     private javax.swing.JLabel aulaLabel;
     private javax.swing.JScrollPane aulasPanel;
+    private javax.swing.JButton botaoCancelarAula;
     private javax.swing.JButton botaoCriarAula;
     private javax.swing.JButton botaoEditarInfo;
     private javax.swing.JMenuItem cadastrarAluno;

@@ -5,10 +5,13 @@
 package telas;
 
 import classes.Aluno;
+import classes.Reserva;
 import classes.UsuarioLogado;
+import enums.Status;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static telas.TelaInicial.listaReservas;
 
 public class PerfilUsuario extends javax.swing.JFrame {
     // instanciando um aluno logado
@@ -23,11 +26,10 @@ public class PerfilUsuario extends javax.swing.JFrame {
     // função para atualizar a tabela de informações de reserva
     private void carregarTabela() {
         DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Aula", "Professor", "Data", "Hora", "Status"}, 0);
-        
+        modelo.setRowCount(0);
         // checando se o usuário tem reservas
         if (alunoLogado.getReservas().isEmpty()) {
             System.out.print("O usuário não tem reservas");
-            return;
         }
         
         // iterando sobre cada reserva para listar elas
@@ -61,13 +63,21 @@ public class PerfilUsuario extends javax.swing.JFrame {
         unidadeValue.setText(alunoLogado.getUnidade().name());
         
         // isso está errado, está pegando todas as aulas
-        aulasValue.setText(Integer.toString(alunoLogado.getReservas().size()));
+        int quantidadeAulas = 0;
+        for (Reserva reserva : alunoLogado.getReservas()) {
+            if (reserva.getStatus().equals(Status.Confirmada)) {
+                quantidadeAulas += 1;
+            }
+        }
+        aulasValue.setText(Integer.toString(quantidadeAulas));
         
         emailInput.setText(alunoLogado.getEmail());
         celularInput.setText(alunoLogado.getCelular());
         nomeInput.setText(alunoLogado.getNome());
         senhaInput.setText("");
         botaoEditar.setEnabled(false);
+        botaoExcluirReserva.setEnabled(false);
+        botaoConfirmarReserva.setEnabled(false);
     }
 
     /**
@@ -104,6 +114,8 @@ public class PerfilUsuario extends javax.swing.JFrame {
         aulasPanel = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         botaoBuscarAulas = new javax.swing.JButton();
+        botaoExcluirReserva = new javax.swing.JButton();
+        botaoConfirmarReserva = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         Logout = new javax.swing.JMenu();
         buscarAulas = new javax.swing.JMenu();
@@ -300,6 +312,11 @@ public class PerfilUsuario extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         aulasPanel.setViewportView(tabela);
 
         botaoBuscarAulas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -310,16 +327,48 @@ public class PerfilUsuario extends javax.swing.JFrame {
             }
         });
 
+        botaoExcluirReserva.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botaoExcluirReserva.setText("Excluir");
+        botaoExcluirReserva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoExcluirReservaMouseClicked(evt);
+            }
+        });
+        botaoExcluirReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluirReservaActionPerformed(evt);
+            }
+        });
+
+        botaoConfirmarReserva.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botaoConfirmarReserva.setText("Confirmar");
+        botaoConfirmarReserva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoConfirmarReservaMouseClicked(evt);
+            }
+        });
+        botaoConfirmarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoConfirmarReservaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(botaoBuscarAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoBuscarAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoConfirmarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoExcluirReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(aulasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -346,7 +395,10 @@ public class PerfilUsuario extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(aulasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoBuscarAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoBuscarAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoExcluirReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoConfirmarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6))
                     .addComponent(infoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -439,6 +491,46 @@ public class PerfilUsuario extends javax.swing.JFrame {
         carregarTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void botaoExcluirReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirReservaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoExcluirReservaMouseClicked
+
+    private void botaoExcluirReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirReservaActionPerformed
+    int linhaSelecionada = tabela.getSelectedRow();
+    
+    if (linhaSelecionada >= 0) {
+        Reserva reserva = alunoLogado.getReservas().get(linhaSelecionada);
+        listaReservas.remove(reserva);
+        reserva.getAula().getReservas().remove(reserva);
+        alunoLogado.getReservas().remove(linhaSelecionada);
+        JOptionPane.showMessageDialog(null, "Reserva removida", "Info", JOptionPane.INFORMATION_MESSAGE);
+        tabela.clearSelection();
+        
+    }
+    estadoInicial();
+    }//GEN-LAST:event_botaoExcluirReservaActionPerformed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        botaoExcluirReserva.setEnabled(true);
+        botaoConfirmarReserva.setEnabled(true);
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void botaoConfirmarReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoConfirmarReservaMouseClicked
+        int linhaSelecionada = tabela.getSelectedRow();
+        
+        if (linhaSelecionada >= 0) {
+            Reserva reserva = alunoLogado.getReservas().get(linhaSelecionada);
+            reserva.setStatus(Status.Confirmada);
+            JOptionPane.showMessageDialog(null, "Reserva confirmada!", "Info", JOptionPane.INFORMATION_MESSAGE);
+            tabela.clearSelection();
+        }
+        estadoInicial();
+    }//GEN-LAST:event_botaoConfirmarReservaMouseClicked
+
+    private void botaoConfirmarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfirmarReservaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoConfirmarReservaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -481,7 +573,9 @@ public class PerfilUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane aulasPanel;
     private javax.swing.JLabel aulasValue;
     private javax.swing.JButton botaoBuscarAulas;
+    private javax.swing.JButton botaoConfirmarReserva;
     private javax.swing.JButton botaoEditar;
+    private javax.swing.JButton botaoExcluirReserva;
     private javax.swing.JMenu buscarAulas;
     private javax.swing.JTextField celularInput;
     private javax.swing.JLabel celularLabel;

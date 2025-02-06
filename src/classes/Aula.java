@@ -83,6 +83,10 @@ public class Aula {
         return reservas;
     }
 
+    public void adicionarReserva(Reserva reserva) {
+        this.reservas.add(reserva);
+    }
+    
     public void setReservas(ArrayList<Reserva> reservas) {
         this.reservas = reservas;
     }
