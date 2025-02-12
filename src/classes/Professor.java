@@ -239,7 +239,7 @@ public class Professor extends Pessoa implements Autenticavel {
                 document.add(new Paragraph("Comissão: R$ " + String.format("%.2f", aula.getcomissao())));
                 document.add(new Paragraph("Detalhes: " + aula.getDetalhes()));
                 document.add(new Paragraph("Alunos Inscritos:"));
-                document.add(new Paragraph(""));
+                document.add(new Paragraph(" "));
                 
                 // criando uma tabela para mostrar os alunos inscritos
                 PdfPTable tabelaReservas = new PdfPTable(3);

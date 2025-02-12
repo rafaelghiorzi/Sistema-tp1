@@ -308,8 +308,13 @@ public class CriarAula extends javax.swing.JFrame {
         System.out.print(diaSelecionado + " " + mesSelecionado + " " + anoSelecionado + " " + horaSelecionada);
         Timestamp dataAula = converterParaTimestamp(diaSelecionado, mesSelecionado, anoSelecionado, horaSelecionada);
         Aula aula = new Aula(nomeSelecionado, capacidade, comissao, detalhesAula, dataAula, professorLogado);
-        JOptionPane.showMessageDialog(this, "Aula cadastrada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
+        if (professorLogado.getAulas().contains(aula)) {
+            JOptionPane.showMessageDialog(this, "Aula cadastrada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();   
+        } else {
+            JOptionPane.showMessageDialog(this, "Já existe uma aula nesse horário!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
         
     }//GEN-LAST:event_botaoSubmitMouseClicked
 

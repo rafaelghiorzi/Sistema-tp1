@@ -73,7 +73,7 @@ public class PerfilUsuario extends javax.swing.JFrame {
                 quantidadeAulas += 1;
             }
         }
-        aulasValue.setText(Integer.toString(quantidadeAulas));
+        aulasValue.setText(String.format("%s / %s (Plano %s)", Integer.toString(quantidadeAulas), alunoLogado.getLimite(), alunoLogado.getPlano().toString()));
         
         emailInput.setText(alunoLogado.getEmail());
         celularInput.setText(alunoLogado.getCelular());
@@ -365,7 +365,7 @@ public class PerfilUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 18, Short.MAX_VALUE)
                         .addComponent(botaoBuscarAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoConfirmarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -493,6 +493,7 @@ public class PerfilUsuario extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         carregarTabela();
+        estadoInicial();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void botaoExcluirReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirReservaMouseClicked

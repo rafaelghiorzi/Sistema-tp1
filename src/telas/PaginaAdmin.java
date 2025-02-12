@@ -100,7 +100,6 @@ public class PaginaAdmin extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaProfessor = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
-        logout = new javax.swing.JMenu();
         voltar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -303,19 +302,6 @@ public class PaginaAdmin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        logout.setText("Logout");
-        logout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                logoutMouseClicked(evt);
-            }
-        });
-        logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(logout);
-
         voltar.setText("Voltar");
         voltar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -350,13 +336,6 @@ public class PaginaAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-        UsuarioLogado.limparSessao();
-        this.dispose();
-        TelaInicial tela = new TelaInicial();
-        tela.setVisible(true);
-    }//GEN-LAST:event_logoutActionPerformed
 
     private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
         this.dispose();
@@ -441,13 +420,6 @@ public class PaginaAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoEditarInfoActionPerformed
 
-    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
-        UsuarioLogado.limparSessao();
-        this.dispose();
-        TelaInicial tela = new TelaInicial();
-        tela.setVisible(true);
-    }//GEN-LAST:event_logoutMouseClicked
-
     private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
         this.dispose();
     }//GEN-LAST:event_voltarMouseClicked
@@ -498,7 +470,6 @@ public class PaginaAdmin extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JMenu logout;
     private javax.swing.JTextField nomeInput;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JPanel painel;
