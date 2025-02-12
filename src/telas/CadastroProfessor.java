@@ -66,7 +66,6 @@ public class CadastroProfessor extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         logout = new javax.swing.JMenu();
         voltar = new javax.swing.JMenu();
-        admin = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(123, 123, 132));
@@ -246,6 +245,11 @@ public class CadastroProfessor extends javax.swing.JFrame {
         );
 
         logout.setText("Logout");
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+        });
         logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutActionPerformed(evt);
@@ -254,15 +258,17 @@ public class CadastroProfessor extends javax.swing.JFrame {
         jMenuBar1.add(logout);
 
         voltar.setText("Voltar");
+        voltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                voltarMouseClicked(evt);
+            }
+        });
         voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 voltarActionPerformed(evt);
             }
         });
         jMenuBar1.add(voltar);
-
-        admin.setText("Admin");
-        jMenuBar1.add(admin);
 
         setJMenuBar(jMenuBar1);
 
@@ -323,6 +329,7 @@ public class CadastroProfessor extends javax.swing.JFrame {
         String sexo = sexoInput.getSelectedItem().toString();
         String unidade = unidadeInput.getSelectedItem().toString();
         String especialidade = especialidadeInput.getSelectedItem().toString();
+        float salario = 1000;
         
         char sexoChar = 'P';
         switch (sexo) {
@@ -363,28 +370,37 @@ public class CadastroProfessor extends javax.swing.JFrame {
         switch (especialidade) {
             case "Calistenia":
                 especialidadeFinal = Especialidade.Calistenia;
+                salario = 2000;
                 break;
             case "Yoga":
                 especialidadeFinal = Especialidade.Yoga;
+                salario = 1800;
                 break;
             case "Funcional":
                 especialidadeFinal = Especialidade.Funcional;
+                salario = 1500;
                 break;
             case "Crossfit":
                 especialidadeFinal = Especialidade.Crossfit;
+                salario = 2200;
                 break;
             case "Musculacao":
                 especialidadeFinal = Especialidade.Musculacao;
-            default:
+                salario = 2500;
                 break;
             case "Pilates":
                 especialidadeFinal = Especialidade.Pilates;
+                salario = 1750;
                 break;
             case "Luta":
                 especialidadeFinal = Especialidade.Luta;
+                salario = 2100;
                 break;
             case "Danca":
                 especialidadeFinal = Especialidade.Danca;
+                salario = 1930;
+                break;
+            default:
                 break;
         }
         
@@ -394,7 +410,7 @@ public class CadastroProfessor extends javax.swing.JFrame {
                 return;
             }
         }
-        Professor professor = new Professor(nome, cpf, sexoChar, email, celular, senha, unidadeFinal, especialidade);
+        Professor professor = new Professor(nome, cpf, sexoChar, email, celular, senha, unidadeFinal, especialidadeFinal, salario, false);
         
         if(professor.validarCPF(cpf)) {
             listaProfessores.add(professor);
@@ -414,6 +430,17 @@ public class CadastroProfessor extends javax.swing.JFrame {
             unidadeInput.removeItemAt(0);
         }
     }//GEN-LAST:event_unidadeInputActionPerformed
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        UsuarioLogado.limparSessao();
+        this.dispose();
+        TelaInicial tela = new TelaInicial();
+        tela.setVisible(true);
+    }//GEN-LAST:event_logoutMouseClicked
+
+    private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_voltarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -452,7 +479,6 @@ public class CadastroProfessor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu admin;
     private javax.swing.JCheckBox adminBool;
     private javax.swing.JButton botaoSubmit;
     private javax.swing.JLabel celular;

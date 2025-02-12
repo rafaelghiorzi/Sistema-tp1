@@ -38,14 +38,9 @@ public class Professor extends Pessoa implements Autenticavel {
         this.salario = 0;
         this.aulas = new ArrayList<>();
         this.admin = admin;
-    } 
-
-    public Professor(String nome, String cpf, char sexoChar, String email, String celular, String senha, Unidade unidadeFinal, String especialidade) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     // Getters e Setters
-    
     @Override
     public String getCPF() {
         return this.cpf;

@@ -237,6 +237,11 @@ public class CriarAula extends javax.swing.JFrame {
         );
 
         logout.setText("Logout");
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+        });
         logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutActionPerformed(evt);
@@ -245,6 +250,11 @@ public class CriarAula extends javax.swing.JFrame {
         jMenuBar1.add(logout);
 
         voltar.setText("Voltar");
+        voltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                voltarMouseClicked(evt);
+            }
+        });
         voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 voltarActionPerformed(evt);
@@ -353,6 +363,17 @@ public class CriarAula extends javax.swing.JFrame {
         TelaInicial tela = new TelaInicial();
         tela.setVisible(true);
     }//GEN-LAST:event_logoutActionPerformed
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        UsuarioLogado.limparSessao();
+        this.dispose();
+        TelaInicial tela = new TelaInicial();
+        tela.setVisible(true);
+    }//GEN-LAST:event_logoutMouseClicked
+
+    private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_voltarMouseClicked
 
     /**
      * @param args the command line arguments

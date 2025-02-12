@@ -360,13 +360,10 @@ public class PerfilProfessor extends javax.swing.JFrame {
                 .addComponent(painelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(nameLabel))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(aulaLabel)))
+                    .addComponent(nameLabel)
+                    .addComponent(aulaLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -426,6 +423,11 @@ public class PerfilProfessor extends javax.swing.JFrame {
         admin.add(cadastrarProfessor);
 
         gerenciarUsuarios.setText("Gerenciar usuários");
+        gerenciarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gerenciarUsuariosMouseClicked(evt);
+            }
+        });
         gerenciarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gerenciarUsuariosActionPerformed(evt);
@@ -529,7 +531,8 @@ public class PerfilProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrarAlunoActionPerformed
 
     private void adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActionPerformed
-        // TODO add your handling code here:
+           PaginaAdmin tela = new PaginaAdmin();
+           tela.setVisible(true);
     }//GEN-LAST:event_adminActionPerformed
 
     private void cadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarProfessorActionPerformed
@@ -542,7 +545,8 @@ public class PerfilProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrarProfessorActionPerformed
 
     private void gerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciarUsuariosActionPerformed
-        // essa tela ainda não existe
+           PaginaAdmin tela = new PaginaAdmin();
+           tela.setVisible(true);
     }//GEN-LAST:event_gerenciarUsuariosActionPerformed
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
@@ -579,6 +583,11 @@ public class PerfilProfessor extends javax.swing.JFrame {
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         botaoCancelarAula.setEnabled(true);
     }//GEN-LAST:event_tabelaMouseClicked
+
+    private void gerenciarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gerenciarUsuariosMouseClicked
+           PaginaAdmin tela = new PaginaAdmin();
+           tela.setVisible(true);
+    }//GEN-LAST:event_gerenciarUsuariosMouseClicked
 
     /**
      * @param args the command line arguments

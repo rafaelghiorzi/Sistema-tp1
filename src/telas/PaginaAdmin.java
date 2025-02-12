@@ -4,21 +4,73 @@
  */
 package telas;
 
+import classes.Aluno;
+import classes.Professor;
 import classes.UsuarioLogado;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static telas.TelaInicial.listaAlunos;
+import static telas.TelaInicial.listaProfessores;
 
 /**
  *
  * @author rafae
  */
 public class PaginaAdmin extends javax.swing.JFrame {
+    // ambos começam não selecionados
+    private static Professor professorSelecionado = null;
+    private static Aluno alunoSelecionado = null;
 
     /**
      * Creates new form PaginaAdmin
      */
     public PaginaAdmin() {
         initComponents();
+        estadoInicial();
     }
 
+    private void estadoInicial() {
+        
+        emailInput.setText("");
+        celularInput.setText("");
+        nomeInput.setText("");
+        botaoEditarInfo.setEnabled(false);
+        botaoExcluir.setEnabled(false);
+        carregarTabelaAluno();
+        carregarTabelaProfessor();
+    }
+    
+    
+    private void carregarTabelaAluno() {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Aluno", "Reservas", "Plano", "CPF"}, 0);
+        
+        for (int i = 0; i < listaAlunos.size(); i++) {
+            Object linha[] = new Object[] {
+                listaAlunos.get(i).getNome(),
+                Integer.toString(listaAlunos.get(i).getReservas().size()),
+                listaAlunos.get(i).getPlano().toString(),
+                listaAlunos.get(i).getCPF(),
+            };
+            modelo.addRow(linha);
+            tabelaAluno.setModel(modelo);
+        }
+    }
+    
+    private void carregarTabelaProfessor() {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Professor", "Aulas", "Especialidade", "CPF"}, 0);
+        
+        for (int i = 0; i < listaProfessores.size(); i++ ) {
+            Object linha[] = new Object[] {
+                listaProfessores.get(i).getNome(),
+                Integer.toString(listaProfessores.get(i).getAulas().size()),
+                listaProfessores.get(i).getEspecialidade().toString(),
+                listaProfessores.get(i).getCPF()
+            };
+            modelo.addRow(linha);
+            tabelaProfessor.setModel(modelo);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,13 +90,11 @@ public class PaginaAdmin extends javax.swing.JFrame {
         celularInput = new javax.swing.JTextField();
         nomeInput = new javax.swing.JTextField();
         botaoEditarInfo = new javax.swing.JButton();
-        inputLabel = new javax.swing.JLabel();
         botaoExcluir = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaAluno = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaProfessor = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         logout = new javax.swing.JMenu();
         voltar = new javax.swing.JMenu();
@@ -86,9 +136,11 @@ public class PaginaAdmin extends javax.swing.JFrame {
                 botaoEditarInfoMouseClicked(evt);
             }
         });
-
-        inputLabel.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        inputLabel.setText("Unidade");
+        botaoEditarInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEditarInfoActionPerformed(evt);
+            }
+        });
 
         botaoExcluir.setText("Excluir usuário");
         botaoExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,8 +154,6 @@ public class PaginaAdmin extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout painelInfoLayout = new javax.swing.GroupLayout(painelInfo);
         painelInfo.setLayout(painelInfoLayout);
         painelInfoLayout.setHorizontalGroup(
@@ -113,10 +163,6 @@ public class PaginaAdmin extends javax.swing.JFrame {
                 .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(painelInfoLayout.createSequentialGroup()
-                        .addComponent(nomeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nomeInput))
-                    .addGroup(painelInfoLayout.createSequentialGroup()
                         .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(emailInput))
@@ -125,15 +171,16 @@ public class PaginaAdmin extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addComponent(celularInput))
                     .addGroup(painelInfoLayout.createSequentialGroup()
-                        .addComponent(inputLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nomeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeInput)
                             .addGroup(painelInfoLayout.createSequentialGroup()
-                                .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(botaoExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botaoEditarInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 65, Short.MAX_VALUE))
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(6, 6, 6)
+                                .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(botaoEditarInfo))
+                                .addGap(0, 65, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         painelInfoLayout.setVerticalGroup(
@@ -154,17 +201,13 @@ public class PaginaAdmin extends javax.swing.JFrame {
                     .addComponent(nomeLabel)
                     .addComponent(nomeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputLabel)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
                 .addComponent(botaoEditarInfo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoExcluir)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -190,9 +233,14 @@ public class PaginaAdmin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tabelaAluno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaAlunoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaAluno);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaProfessor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -218,7 +266,12 @@ public class PaginaAdmin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        tabelaProfessor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaProfessorMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelaProfessor);
 
         javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
         painel.setLayout(painelLayout);
@@ -239,7 +292,7 @@ public class PaginaAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(painelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -308,8 +361,71 @@ public class PaginaAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoExcluirMouseClicked
 
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
-        // TODO add your handling code here:
+        if (professorSelecionado != null && alunoSelecionado != null) {
+            JOptionPane.showMessageDialog(this, "Algo deu errado, tente novamente mais tarde", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (professorSelecionado != null) {
+            // Aqui precisa vir tratamento para as reservas, aulas e afins
+            listaProfessores.remove(professorSelecionado);
+            JOptionPane.showMessageDialog(this, "Professor excluído com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            estadoInicial();
+        } else if (alunoSelecionado != null) {
+            listaAlunos.remove(alunoSelecionado);
+            JOptionPane.showMessageDialog(this, "Aluno excluído com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            estadoInicial();
+        }
     }//GEN-LAST:event_botaoExcluirActionPerformed
+
+    private void tabelaAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaAlunoMouseClicked
+        tabelaProfessor.clearSelection();
+        int linha = tabelaAluno.getSelectedRow();
+        alunoSelecionado = listaAlunos.get(linha);
+        professorSelecionado = null;
+        
+        // arrumando botões
+        botaoEditarInfo.setEnabled(true);
+        botaoExcluir.setEnabled(true);
+        
+        emailInput.setText(alunoSelecionado.getEmail());
+        celularInput.setText(alunoSelecionado.getCelular());
+        nomeInput.setText(alunoSelecionado.getNome());
+    }//GEN-LAST:event_tabelaAlunoMouseClicked
+
+    private void tabelaProfessorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaProfessorMouseClicked
+        tabelaAluno.clearSelection();
+        int linha = tabelaProfessor.getSelectedRow();
+        professorSelecionado = listaProfessores.get(linha);
+        alunoSelecionado = null;
+
+        // arrumando botões
+        botaoEditarInfo.setEnabled(true);
+        botaoExcluir.setEnabled(true);
+        
+        emailInput.setText(professorSelecionado.getEmail());
+        celularInput.setText(professorSelecionado.getCelular());
+        nomeInput.setText(professorSelecionado.getNome());
+    }//GEN-LAST:event_tabelaProfessorMouseClicked
+
+    private void botaoEditarInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarInfoActionPerformed
+        String email = emailInput.getText();
+        String celular = celularInput.getText();
+        String nome = nomeInput.getText();
+        
+        if (professorSelecionado != null && alunoSelecionado != null) {
+            JOptionPane.showMessageDialog(this, "Algo deu errado, tente novamente mais tarde", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (professorSelecionado != null) {
+            professorSelecionado.setNome(nome);
+            professorSelecionado.setEmail(email);
+            professorSelecionado.setCelular(celular);
+            JOptionPane.showMessageDialog(this, "Professor editado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            estadoInicial();
+        } else if (alunoSelecionado != null) {
+            alunoSelecionado.setNome(nome);
+            alunoSelecionado.setEmail(email);
+            alunoSelecionado.setCelular(celular);
+            JOptionPane.showMessageDialog(this, "Aluno editado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            estadoInicial();
+        }
+    }//GEN-LAST:event_botaoEditarInfoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,18 +470,16 @@ public class PaginaAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField emailInput;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel infoLabel;
-    private javax.swing.JLabel inputLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JMenu logout;
     private javax.swing.JTextField nomeInput;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JPanel painel;
     private javax.swing.JPanel painelInfo;
+    private javax.swing.JTable tabelaAluno;
+    private javax.swing.JTable tabelaProfessor;
     private javax.swing.JMenu voltar;
     // End of variables declaration//GEN-END:variables
 }
