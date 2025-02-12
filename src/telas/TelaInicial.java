@@ -13,6 +13,8 @@ import enums.Planos;
 import enums.Unidade;
 import java.util.ArrayList;
 import java.sql.Timestamp;
+import java.util.List;
+import javax.swing.ImageIcon;
 /**
  *
  * @author rafae
@@ -23,60 +25,78 @@ public class TelaInicial extends javax.swing.JFrame {
     public static ArrayList<Professor> listaProfessores = new ArrayList<>();
     public static ArrayList<Aula> listaAulas = new ArrayList<>();
     public static ArrayList<Reserva> listaReservas = new ArrayList<>();
+    
 
+    
     public TelaInicial() {
         initComponents();
         adicionarDadosIniciais();
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("resources/gym.png"));
+        this.setIconImage(icon.getImage());
+        this.setTitle("Painel CodeFit");
     }
 
 private void adicionarDadosIniciais() {
-    // Criando professores
-    if (!listaProfessores.isEmpty() && !listaAlunos.isEmpty() && !listaAulas.isEmpty()) {
-        return; // Se qualquer uma das listas já tiver elementos, não adiciona novamente
+    if (!listaProfessores.isEmpty() || !listaAlunos.isEmpty() || !listaAulas.isEmpty()) {
+        return;
     }
+
+    // Criar professores para cada unidade
+    Professor admin = new Professor("admin", "admin@codefit.com", "admin", true);
     
-    Professor admin = new Professor("Admin", "admin@codefit.com", "admin", true); 
-    Professor professor2 = new Professor("Maria Oliveira", "123", 'F', "maria@gmail.com", "11988888888", "123", Unidade.Noroeste, Especialidade.Funcional, 3200.0f, false);
-    Professor professor3 = new Professor("Carlos Silva", "carlos@gmail.com", "senha789", true); 
-    Professor professor4 = new Professor("Paula Souza", "paula@gmail.com", "senha101", false);
+    // Unidade Sul
+    Professor andre = new Professor("André Luis", "51582341168", 'M', "andre@codefit.com", "21993559249", "senha", Unidade.Sul, Especialidade.Luta, 2000.0f, false);
+    // Unidade Sudoeste
+    Professor maria = new Professor("Maria Oliveira", "98765432109", 'F', "maria@gmail.com", "61991306015", "123", Unidade.Sudoeste, Especialidade.Funcional, 3200.0f, false);
+    Professor carla = new Professor("Carla Silva", "12345678901", 'F', "carla@codefit.com", "61987654321", "senha", Unidade.Sudoeste, Especialidade.Pilates, 2500.0f, false);
+    // Unidade Norte
+    Professor joao = new Professor("João Santos", "11122233344", 'M', "joao@codefit.com", "61911112222", "senha", Unidade.Norte, Especialidade.Crossfit, 3000.0f, false);
+    Professor ana = new Professor("Ana Paula", "55566677788", 'F', "ana@codefit.com", "61933334444", "senha", Unidade.Norte, Especialidade.Danca, 2800.0f, false);
+    // Unidade Noroeste
+    Professor carlos = new Professor("Carlos Silva", "99988877766", 'M', "carlos@codefit.com", "61955556666", "senha", Unidade.Noroeste, Especialidade.Danca, 2500.0f, false);
+    Professor pedro = new Professor("Pedro Alves", "44455566677", 'M', "pedro@codefit.com", "61977778888", "senha", Unidade.Noroeste, Especialidade.Musculacao, 2700.0f, false);
 
-    // Adicionando professores na lista
-    listaProfessores.add(admin);
-    listaProfessores.add(professor2);
-    listaProfessores.add(professor3);
-    listaProfessores.add(professor4);
+    // Adicionar professores às listas
+    listaProfessores.addAll(List.of(admin, andre, maria, carla, joao, ana, carlos, pedro));
 
-    // Criando alunos
-    Aluno aluno1 = new Aluno("Ana Costa", "19943781742", 'F', "ana@gmail.com", "11966666666", "senha123", Unidade.Sul, Planos.Normal);
-    Aluno aluno2 = new Aluno("Bruno Rocha", "56789012345", 'M', "bruno@gmail.com", "11955555555", "senha456", Unidade.Noroeste, Planos.Normal);
-    Aluno aluno3 = new Aluno("Luana Pereira", "12345678901", 'F', "luana@gmail.com", "11944444444", "senha321", Unidade.Sudoeste, Planos.Platinum);
-    Aluno aluno4 = new Aluno("Felipe Santos", "98765432100", 'M', "felipe@gmail.com", "11933333333", "senha654", Unidade.Sul, Planos.Gold);
+    // Criar alunos para cada unidade
+    // Unidade Sul
+    Aluno alunoSul1 = new Aluno("Rafael Dias", "19943781742", 'M', "rafael@codefit.com", "21993556015", "senha", Unidade.Sul, Planos.Normal);
+    Aluno alunoSul2 = new Aluno("Fernanda Lima", "12345678901", 'F', "fernanda@codefit.com", "21999999999", "senha", Unidade.Sul, Planos.Platinum);
+    // Unidade Sudoeste
+    Aluno alunoSudoeste1 = new Aluno("Luana Pereira", "98765432109", 'F', "luana@codefit.com", "11944444444", "senha", Unidade.Sudoeste, Planos.Gold);
+    Aluno alunoSudoeste2 = new Aluno("Bruno Rocha", "56789012345", 'M', "bruno@codefit.com", "11955555555", "senha", Unidade.Sudoeste, Planos.Normal);
+    // Unidade Norte
+    Aluno alunoNorte1 = new Aluno("Felipe Santos", "11122233344", 'M', "felipe@codefit.com", "11933333333", "senha", Unidade.Norte, Planos.Normal);
+    Aluno alunoNorte2 = new Aluno("Juliana Costa", "55566677788", 'F', "juliana@codefit.com", "11922222222", "senha", Unidade.Norte, Planos.Platinum);
+    // Unidade Noroeste
+    Aluno alunoNoroeste1 = new Aluno("Gabriel Souza", "99988877766", 'M', "gabriel@codefit.com", "11911111111", "senha", Unidade.Noroeste, Planos.Gold);
+    Aluno alunoNoroeste2 = new Aluno("Patricia Lima", "44455566677", 'F', "patricia@codefit.com", "11900000000", "senha", Unidade.Noroeste, Planos.Normal);
 
-    // Adicionando alunos na lista
-    listaAlunos.add(aluno1);
-    listaAlunos.add(aluno2);
-    listaAlunos.add(aluno3);
-    listaAlunos.add(aluno4);
+    // Adicionar alunos às listas
+    listaAlunos.addAll(List.of(alunoSul1, alunoSul2, alunoSudoeste1, alunoSudoeste2, alunoNorte1, alunoNorte2, alunoNoroeste1, alunoNoroeste2));
 
-    // Criando aulas
-    Timestamp timestamp1 = Timestamp.valueOf("2025-01-22 14:30:00");
-    Timestamp timestamp2 = Timestamp.valueOf("2025-01-23 10:00:00");
-    Timestamp timestamp3 = Timestamp.valueOf("2025-01-24 09:00:00");
-    Timestamp timestamp4 = Timestamp.valueOf("2025-01-25 15:00:00");
+    // Criar aulas
+    // Unidade Sul
+    Aula aulaSul1 = new Aula("Musculação", 12, 80, "Aula intensa de musculação", Timestamp.valueOf("2025-02-22 14:00:00"), admin);
+    Aula aulaSul2 = new Aula("Luta", 12, 100, "Aula de defesa pessoal", Timestamp.valueOf("2025-02-23 18:00:00"), andre);
+    // Unidade Sudoeste
+    Aula aulaSudoeste1 = new Aula("Funcional", 8, 90, "Aula de funcional para iniciantes", Timestamp.valueOf("2025-02-24 09:00:00"), maria);
+    Aula aulaSudoeste2 = new Aula("Pilates", 8, 100, "Aula de Pilates avançado", Timestamp.valueOf("2025-02-25 16:00:00"), carla);
+    // Unidade Norte
+    Aula aulaNorte1 = new Aula("Crossfit", 15, 100, "Aula de Crossfit intenso", Timestamp.valueOf("2025-02-26 17:00:00"), joao);
+    Aula aulaNorte2 = new Aula("Dança", 20, 80, "Aula de dança contemporânea", Timestamp.valueOf("2025-02-27 19:00:00"), ana);
+    // Unidade Noroeste
+    Aula aulaNoroeste1 = new Aula("Dança", 20, 80, "Aula de dança de salão", Timestamp.valueOf("2025-02-28 20:00:00"), carlos);
+    Aula aulaNoroeste2 = new Aula("Musculação", 12, 80, "Aula de musculação para iniciantes", Timestamp.valueOf("2025-02-29 08:00:00"), pedro);
 
-    Aula aula1 = new Aula("Calistenia", 35, 2, "Exercícios corporais", timestamp1, admin);
-    Aula aula2 = new Aula("Yoga", 30, 3, "Aula para praticantes experientes", timestamp2, professor2);
-    Aula aula3 = new Aula("Pilates", 40, 1, "Aula de Pilates para iniciantes", timestamp3, professor3);
-    Aula aula4 = new Aula("Musculacao", 45, 2, "Aula intensa de ciclismo", timestamp4, professor4);
-    
-    aluno1.criarReserva(aula2);
-
-    // Adicionando aulas na lista e aos professores
-    admin.criarAula(aula1);
-    professor2.criarAula(aula2);
-    professor3.criarAula(aula3);
-    professor4.criarAula(aula4);
+    // Adicionar reservas
+    alunoSul1.criarReserva(aulaSul2); // Rafael reservou Musculação
+    alunoSudoeste1.criarReserva(aulaSudoeste1); // Luana reservou Funcional
+    alunoNorte2.criarReserva(aulaNorte2); // Juliana reservou Dança
+    // Os demais alunos não possuem reservas
 }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -140,7 +160,7 @@ private void adicionarDadosIniciais() {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Design sem nome.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon.png"))); // NOI18N
 
         javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
         painel.setLayout(painelLayout);
@@ -227,13 +247,13 @@ private void adicionarDadosIniciais() {
             java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaInicial().setVisible(true);
             }
-        });
+        });        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

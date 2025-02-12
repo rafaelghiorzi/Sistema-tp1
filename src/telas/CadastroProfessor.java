@@ -9,6 +9,7 @@ import classes.UsuarioLogado;
 import enums.Especialidade;
 import enums.Unidade;
 import java.awt.HeadlessException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static telas.TelaInicial.listaProfessores;
 
@@ -24,6 +25,9 @@ public class CadastroProfessor extends javax.swing.JFrame {
     public CadastroProfessor() {
         initComponents();
         popularComboBoxUnidade();
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("resources/gym.png"));
+        this.setIconImage(icon.getImage());
+        this.setTitle("Cadastrar professor");
     }
     
     private void popularComboBoxUnidade() {
@@ -329,6 +333,7 @@ public class CadastroProfessor extends javax.swing.JFrame {
         String sexo = sexoInput.getSelectedItem().toString();
         String unidade = unidadeInput.getSelectedItem().toString();
         String especialidade = especialidadeInput.getSelectedItem().toString();
+        boolean admin = adminBool.isEnabled();
         float salario = 1000;
         
         char sexoChar = 'P';
@@ -410,7 +415,7 @@ public class CadastroProfessor extends javax.swing.JFrame {
                 return;
             }
         }
-        Professor professor = new Professor(nome, cpf, sexoChar, email, celular, senha, unidadeFinal, especialidadeFinal, salario, false);
+        Professor professor = new Professor(nome, cpf, sexoChar, email, celular, senha, unidadeFinal, especialidadeFinal, salario, admin);
         
         if(professor.validarCPF(cpf)) {
             listaProfessores.add(professor);

@@ -9,6 +9,7 @@ import classes.Reserva;
 import classes.UsuarioLogado;
 import enums.Status;
 import java.text.SimpleDateFormat;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static telas.TelaInicial.listaReservas;
@@ -21,6 +22,9 @@ public class PerfilUsuario extends javax.swing.JFrame {
         initComponents();
         this.alunoLogado = (Aluno) UsuarioLogado.getUsuarioLogado();
         estadoInicial();
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("resources/gym.png"));
+        this.setIconImage(icon.getImage());
+        this.setTitle("Painel do aluno");
     }
     
     // função para atualizar a tabela de informações de reserva

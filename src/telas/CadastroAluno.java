@@ -8,6 +8,7 @@ import classes.Aluno;
 import classes.UsuarioLogado;
 import enums.Planos;
 import enums.Unidade;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static telas.TelaInicial.listaAlunos;
 
@@ -24,6 +25,9 @@ public class CadastroAluno extends javax.swing.JFrame {
         initComponents();
         popularComboBoxUnidade();
         popularComboBoxPlano();
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("resources/gym.png"));
+        this.setIconImage(icon.getImage());
+        this.setTitle("Cadastrar aluno");
     }
 
     private void popularComboBoxUnidade() {

@@ -10,6 +10,7 @@ import classes.Reserva;
 import classes.UsuarioLogado;
 import enums.Status;
 import java.text.SimpleDateFormat;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static telas.TelaInicial.listaAulas;
@@ -26,6 +27,9 @@ public class PerfilProfessor extends javax.swing.JFrame {
         initComponents();
         this.professorLogado = (Professor) UsuarioLogado.getUsuarioLogado();
         estadoInicial();
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("resources/gym.png"));
+        this.setIconImage(icon.getImage());
+        this.setTitle("Painel do professor");
     }
 
     // função para atualizar a tabela de informações de reserva
@@ -117,6 +121,7 @@ public class PerfilProfessor extends javax.swing.JFrame {
         cadastrarProfessor = new javax.swing.JMenuItem();
         gerenciarUsuarios = new javax.swing.JMenuItem();
         criarAula = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -450,6 +455,19 @@ public class PerfilProfessor extends javax.swing.JFrame {
         });
         jMenuBar1.add(criarAula);
 
+        jMenu1.setText("Gerar relatório");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -545,8 +563,12 @@ public class PerfilProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrarProfessorActionPerformed
 
     private void gerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciarUsuariosActionPerformed
+        if (!professorLogado.isAdmin()) {
+            JOptionPane.showMessageDialog(this, "Você não tem acesso a essa página", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
            PaginaAdmin tela = new PaginaAdmin();
            tela.setVisible(true);
+        }
     }//GEN-LAST:event_gerenciarUsuariosActionPerformed
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
@@ -585,9 +607,31 @@ public class PerfilProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void gerenciarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gerenciarUsuariosMouseClicked
+        if (!professorLogado.isAdmin()) {
+            JOptionPane.showMessageDialog(this, "Você não tem acesso a essa página", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
            PaginaAdmin tela = new PaginaAdmin();
            tela.setVisible(true);
+        }
     }//GEN-LAST:event_gerenciarUsuariosMouseClicked
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        boolean pdf = professorLogado.gerarRelatorioMes();
+        if (pdf) {
+            JOptionPane.showMessageDialog(this, "O PDF foi salvo na sua pasta de downloads", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Algo deu errado, tente novamente mais tarde", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        boolean pdf = professorLogado.gerarRelatorioMes();
+        if (pdf) {
+            JOptionPane.showMessageDialog(this, "O PDF foi salvo na sua pasta de downloads", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Algo deu errado, tente novamente mais tarde", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -642,6 +686,7 @@ public class PerfilProfessor extends javax.swing.JFrame {
     private javax.swing.JLabel especialidadeLabel;
     private javax.swing.JMenuItem gerenciarUsuarios;
     private javax.swing.JLabel infoLabel;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;

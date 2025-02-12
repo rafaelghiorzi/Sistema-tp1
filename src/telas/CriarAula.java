@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import classes.Aula;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +25,9 @@ public class CriarAula extends javax.swing.JFrame {
     public CriarAula() {
         initComponents();
         this.professorLogado = (Professor) UsuarioLogado.getUsuarioLogado();
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("resources/gym.png"));
+        this.setIconImage(icon.getImage());
+        this.setTitle("Cadastre uma nova aula no sistema");
     }
     
     public static Timestamp converterParaTimestamp(int dia, int mes, int ano, String hora) {
@@ -303,7 +307,7 @@ public class CriarAula extends javax.swing.JFrame {
         
         System.out.print(diaSelecionado + " " + mesSelecionado + " " + anoSelecionado + " " + horaSelecionada);
         Timestamp dataAula = converterParaTimestamp(diaSelecionado, mesSelecionado, anoSelecionado, horaSelecionada);
-        professorLogado.criarAula(new Aula(nomeSelecionado, capacidade, comissao, detalhesAula, dataAula, professorLogado));
+        Aula aula = new Aula(nomeSelecionado, capacidade, comissao, detalhesAula, dataAula, professorLogado);
         JOptionPane.showMessageDialog(this, "Aula cadastrada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
         

@@ -28,6 +28,8 @@ public class Aula {
         this.data = data;
         this.professor = professor;
         this.reservas = new ArrayList<>();
+        
+        professor.criarAula(this);
     }
 
     // Getters e Setters
@@ -97,12 +99,6 @@ public class Aula {
         System.out.println("Data: " + data);
         System.out.println("Capacidade: " + capacidade);
         System.out.println("Detalhes: " + detalhes);
-    }
-
-    // Calcular comissão
-    public float calcularComissao(Professor professor) {
-        // Assumindo que cada reserva gera um valor (exemplo de cálculo)
-        return comissao * 0.01f; // exemplo: 2% de comissão
     }
 }
 

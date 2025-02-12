@@ -11,6 +11,7 @@ import classes.UsuarioLogado;
 import enums.Especialidade;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import static telas.TelaInicial.listaAulas;
 import static telas.TelaInicial.listaProfessores;
@@ -28,6 +29,9 @@ public class CriarReserva extends javax.swing.JFrame {
         initComponents();
         this.alunoLogado = (Aluno) UsuarioLogado.getUsuarioLogado();
         estadoInicial();
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("resources/gym.png"));
+        this.setIconImage(icon.getImage());
+        this.setTitle("Reserva uma vaga!");
     }
     
     private void estadoInicial() {
@@ -73,9 +77,12 @@ public class CriarReserva extends javax.swing.JFrame {
             // Verifica se o aluno já reservou essa aula
             boolean jaReservado = alunoLogado.getReservas().stream()
                 .anyMatch(reserva -> reserva.getAula().equals(aula));
+            
+            // Verifica se a aula está na mesma unidade do aluno
+            boolean mesmaUnidade = alunoLogado.getUnidade() == aula.getProfessor().getUnidade();
 
             // Adiciona a aula à lista apenas se ainda não foi reservada pelo aluno
-            if (!jaReservado && professorValido && aulaValida && !"Admin".equals(aula.getProfessor().getNome())) {
+            if (mesmaUnidade && !jaReservado && professorValido && aulaValida && !"Admin".equals(aula.getProfessor().getNome())) {
                 aulasFiltradas.add(aula);
             }
         }

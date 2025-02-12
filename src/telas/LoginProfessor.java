@@ -6,6 +6,7 @@ package telas;
 
 import classes.Professor;
 import classes.UsuarioLogado;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static telas.TelaInicial.listaProfessores;
 
@@ -20,6 +21,9 @@ public class LoginProfessor extends javax.swing.JFrame {
      */
     public LoginProfessor() {
         initComponents();
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("resources/gym.png"));
+        this.setIconImage(icon.getImage());
+        this.setTitle("Login professor CodeFit");
     }
 
      // lógica para realizar login do usuário
